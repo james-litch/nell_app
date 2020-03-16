@@ -56,8 +56,14 @@ class __AuthMobileState extends State<_AuthMobile> {
       secondaryColor: Colors.white,
       primaryColor: Colors.blue,
     );
+    void clearControllers() {
+      _nameController.clear();
+      _emailController.clear();
+      _passwordController.clear();
+    }
 
     void loginSheet() {
+      clearControllers();
       _scaffoldKey.currentState.showBottomSheet(
         (context) => BottomSheetWidget(
           body: Column(
@@ -75,6 +81,7 @@ class __AuthMobileState extends State<_AuthMobile> {
     }
 
     void registerSheet() {
+      clearControllers();
       _scaffoldKey.currentState.showBottomSheet(
         (context) => BottomSheetWidget(
           body: Column(
