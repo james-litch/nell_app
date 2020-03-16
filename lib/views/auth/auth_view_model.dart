@@ -13,8 +13,7 @@ class AuthViewModel extends BaseViewModel {
   final AuthService _authService = locator<AuthService>();
   final DialogService _dialogService = locator<DialogService>();
 
-  Future login(String email, String password) async {
-    print('hello');
+  Future logIn(String email, String password) async {
     var body = {
       "query": signInMutation,
       "variables": {
@@ -34,9 +33,24 @@ class AuthViewModel extends BaseViewModel {
     }
   }
 
-  void signUp() {
-    locator<NavigatorService>()
-        .navigateToPage(MaterialPageRoute(builder: (context) => HomeView()));
+  Future signUp(String name, String email, String password) async {
+    var body = {
+      "query": signUpMutation,
+      "variables": {
+        "input": {"name": name, "email": email, "password": password}
+      },
+    };
+
+    var result = await _authService.logIn(json.encode(body));
+
+    if (result is String) {
+      await _dialogService.showDialog(
+        title: 'Login Failure',
+        description: result,
+      );
+    } else {
+      locator<NavigatorService>().navigateToAndReplace(HomeViewRoute);
+    }
   }
 
   String signInMutation = """
