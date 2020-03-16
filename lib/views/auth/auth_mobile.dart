@@ -14,6 +14,7 @@ class __AuthMobileState extends State<_AuthMobile> {
   TextEditingController _emailController = new TextEditingController();
   TextEditingController _passwordController = new TextEditingController();
   TextEditingController _nameController = new TextEditingController();
+  bool _register = false;
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +52,12 @@ class __AuthMobileState extends State<_AuthMobile> {
       text: 'SUBMIT',
       boarder: false,
       function: () {
-        widget.viewModel.login(_emailController.text, _passwordController.text);
+        if (_register)
+          widget.viewModel
+              .signUp(_nameController.text,_emailController.text, _passwordController.text);
+        else
+          widget.viewModel
+              .logIn(_emailController.text, _passwordController.text);
       },
       secondaryColor: Colors.white,
       primaryColor: Colors.blue,
