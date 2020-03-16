@@ -10,7 +10,7 @@ class StartupViewModel extends BaseViewModel {
 
   Future startUpLogic() async {
     var userLoggedIn = _authService.userLoggedIn();
-    print(userLoggedIn);
+
     Future.delayed(const Duration(seconds: 1), () {
       if (userLoggedIn)
         _navigatorService.navigateToAndReplace(HomeViewRoute);
