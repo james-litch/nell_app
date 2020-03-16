@@ -31,8 +31,7 @@ class RoundedButtonWidget extends StatelessWidget {
         boarder: boarder,
         function: function,
       ),
-      desktop: _RoundedButtonDesktop(),
-      tablet: _RoundedButtonTablet(),
+  
     );
   }
 }

@@ -12,8 +12,7 @@ class LogoWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
         mobile: _LogoMobile(),
-        desktop: _LogoDesktop(),
-        tablet: _LogoTablet(),
+      
     );
   }
 }

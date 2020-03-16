@@ -17,8 +17,7 @@ class BottomSheetWidget extends StatelessWidget {
       mobile: _BottomSheetMobile(
         body: body,
       ),
-      desktop: _BottomSheetDesktop(),
-      tablet: _BottomSheetTablet(),
+     
     );
   }
 }

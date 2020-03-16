@@ -25,8 +25,7 @@ class AuthView extends StatelessWidget {
       builder: (context, viewModel, child) {
         return ScreenTypeLayout(
           mobile: _AuthMobile(viewModel),
-          desktop: _AuthDesktop(viewModel),
-          tablet: _AuthTablet(viewModel),  
+   
         );
       }
     );

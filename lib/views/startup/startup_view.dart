@@ -22,8 +22,6 @@ class StartupView extends StatelessWidget {
         builder: (context, viewModel, child) {
           return ScreenTypeLayout(
             mobile: _StartupMobile(viewModel),
-            desktop: _StartupDesktop(viewModel),
-            tablet: _StartupTablet(viewModel),
           );
         });
   }

@@ -38,8 +38,7 @@ class RoundedTextBoxWidget extends StatelessWidget {
         label: label,
         icon: icon,
       ),
-      desktop: _RoundedTextBoxDesktop(),
-      tablet: _RoundedTextBoxTablet(),
+    
     );
   }
 }
