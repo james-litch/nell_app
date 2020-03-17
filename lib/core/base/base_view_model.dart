@@ -20,7 +20,7 @@ class BaseViewModel extends ChangeNotifier {
   bool get isDisposed => this._isDisposed;
   String get title => _title ?? this.runtimeType.toString();
 
-  set busy(bool busy) {
+  void setBusy(bool busy) {
     log.i(
       'busy: '
       '$title is entering '
