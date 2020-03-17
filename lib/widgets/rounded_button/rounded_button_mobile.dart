@@ -5,7 +5,7 @@ class _RoundedButtonMobile extends StatelessWidget {
   final Color primaryColor;
   final Color secondaryColor;
   final bool boarder;
-  final  function;
+  final function;
 
   _RoundedButtonMobile({
     @required this.text,
@@ -18,6 +18,7 @@ class _RoundedButtonMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     Color boarderColor = boarder ? secondaryColor : primaryColor;
     return RaisedButton(
+      onPressed: () => function(),
       highlightElevation: 0.0,
       splashColor: secondaryColor,
       highlightColor: secondaryColor,
@@ -38,9 +39,6 @@ class _RoundedButtonMobile extends StatelessWidget {
           ),
         ),
       ),
-      onPressed: () {
-        function();
-      },
     );
   }
 }
