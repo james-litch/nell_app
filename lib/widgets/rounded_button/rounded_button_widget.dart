@@ -12,7 +12,8 @@ class RoundedButtonWidget extends StatelessWidget {
   final Color primaryColor;
   final Color secondaryColor;
   final bool boarder;
-  final  function;
+
+  final function;
 
   RoundedButtonWidget({
     @required this.text,
@@ -31,7 +32,6 @@ class RoundedButtonWidget extends StatelessWidget {
         boarder: boarder,
         function: function,
       ),
-  
     );
   }
 }
