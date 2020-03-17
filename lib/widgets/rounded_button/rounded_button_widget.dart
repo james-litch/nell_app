@@ -12,7 +12,6 @@ class RoundedButtonWidget extends StatelessWidget {
   final Color primaryColor;
   final Color secondaryColor;
   final bool boarder;
-
   final function;
 
   RoundedButtonWidget({
