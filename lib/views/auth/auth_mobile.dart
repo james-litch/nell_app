@@ -53,11 +53,16 @@ class __AuthMobileState extends State<_AuthMobile> {
       boarder: false,
       function: () {
         if (_register)
-          widget.viewModel
-              .signUp(_nameController.text,_emailController.text, _passwordController.text);
+          widget.viewModel.signUp(
+            name: _nameController.text,
+            email: _emailController.text,
+            password: _passwordController.text,
+          );
         else
-          widget.viewModel
-              .logIn(_emailController.text, _passwordController.text);
+          widget.viewModel.logIn(
+            email: _emailController.text,
+            password: _passwordController.text,
+          );
       },
       secondaryColor: Colors.white,
       primaryColor: Colors.blue,
@@ -128,16 +133,17 @@ class __AuthMobileState extends State<_AuthMobile> {
       body: Padding(
         padding: EdgeInsets.only(left: 30, right: 30),
         child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.max,
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              LogoWidget(),
-              SizedBox(height: 80),
-              loginButton,
-              SizedBox(height: 15),
-              registerButton,
-            ]),
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            LogoWidget(),
+            SizedBox(height: 80),
+            loginButton,
+            SizedBox(height: 15),
+            registerButton,
+          ],
+        ),
       ),
     );
   }
