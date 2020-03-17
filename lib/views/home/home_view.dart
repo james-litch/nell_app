@@ -20,9 +20,7 @@ class HomeView extends StatelessWidget {
       },
       builder: (context, viewModel, child) {
         return ScreenTypeLayout(
-          mobile: _HomeMobile(viewModel),
-          desktop: _HomeDesktop(viewModel),
-          tablet: _HomeTablet(viewModel),  
+          mobile: _HomeMobile(viewModel), 
         );
       }
     );
