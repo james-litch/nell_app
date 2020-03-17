@@ -15,10 +15,12 @@ class StorageService extends BaseService {
 
   static Future<StorageService> getInstance() async {
     if (_instance == null) {
+      print('hello');
       _instance = StorageService();
     }
 
     if (_preferences == null) {
+      print('hello');
       _preferences = await SharedPreferences.getInstance();
     }
 
@@ -45,7 +47,8 @@ class StorageService extends BaseService {
   String get tokens => _getFromDisk(AuthTokens);
 
   void _saveToDisk<T>(String key, T content) {
-    log.i('LocalStorageService: _saveToDisk. key: $key value: $content');
+    
+    log.i('StorageService: _saveToDisk. key: $key value: $content');
 
     if (content is String) {
       _preferences.setString(key, content);
@@ -68,7 +71,7 @@ class StorageService extends BaseService {
     var value;
     try {
       value = _preferences.get(key);
-      log.i('LocalStorageService: _getFromDisk. key: $key value: $value');
+      log.i('StorageService: _getFromDisk. key: $key value: $value');
     } catch (err) {
       value = null;
     }

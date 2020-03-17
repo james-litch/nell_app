@@ -20,15 +20,14 @@ class LocatorInjector {
     _log.d('Initializing Dialog Service');
     locator.registerLazySingleton(() => DialogService());
 
-     _log.d('Initializing Storage Service');
-    locator.registerLazySingleton(() => StorageService());
+    _log.d('Initializing Storage Service');
+    var instance = await StorageService.getInstance();
+    locator.registerSingleton<StorageService>(instance);
 
-     _log.d('Initializing Auth Service');
+    _log.d('Initializing Auth Service');
     locator.registerLazySingleton(() => AuthService());
 
-     _log.d('Initializing API Service');
+    _log.d('Initializing API Service');
     locator.registerLazySingleton(() => ApiService());
-
-      
   }
 }
