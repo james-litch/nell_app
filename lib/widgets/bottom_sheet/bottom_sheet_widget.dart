@@ -9,15 +9,22 @@ part 'bottom_sheet_desktop.dart';
 
 class BottomSheetWidget extends StatelessWidget {
   final Widget body;
+  final Color primaryColor;
+  final Color secondaryColor;
 
-  BottomSheetWidget({@required this.body});
+  BottomSheetWidget({
+    @required this.body,
+    this.primaryColor = Colors.white,
+    this.secondaryColor = Colors.blue,
+  });
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
       mobile: _BottomSheetMobile(
         body: body,
+        primaryColor: primaryColor,
+        secondaryColor: secondaryColor,
       ),
-     
     );
   }
 }
