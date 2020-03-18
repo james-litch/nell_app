@@ -1,15 +1,36 @@
 import 'package:nell/core/base/base_view_model.dart';
+import 'package:nell/core/constants/route_names.dart';
+import 'package:nell/core/locator.dart';
+import 'package:nell/core/services/auth_service.dart';
+import 'package:nell/core/services/navigator_service.dart';
 
 class HomeViewModel extends BaseViewModel {
-  int _counter;
+  final AuthService _authService = locator<AuthService>();
+  final NavigatorService _navigatorService = locator<NavigatorService>();
 
-  HomeViewModel({int counter = 0}) : this._counter = counter;
+  String _title;
 
-  int get counter => this._counter;
-  set counter(int value) {
-    this._counter = value;
+  //List <Subject>
+
+  // menu items -> subject; name id
+  // on subject change : subjects
+
+  HomeViewModel({String title = 'Nell'}) : this._title = title;
+
+  Future init() async {
+    // get subjects.
+  }
+
+  // get items .map .where
+
+  String get title => this._title;
+
+  set title(String value) {
+    this._title = value;
     notifyListeners();
   }
 
-  void increment() => this.counter += 1;
+  Future onAccount() async {
+    _navigatorService.navigateTo(AccountViewRoute);
+  }
 }
