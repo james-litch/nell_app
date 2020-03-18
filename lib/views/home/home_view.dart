@@ -1,5 +1,6 @@
 library home_view;
 
+import 'package:nell/widgets/bottom_sheet/bottom_sheet_widget.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';
