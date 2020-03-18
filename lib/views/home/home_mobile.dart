@@ -4,32 +4,46 @@ class _HomeMobile extends StatelessWidget {
   final HomeViewModel viewModel;
 
   _HomeMobile(this.viewModel);
+// have actions
 
   @override
   Widget build(BuildContext context) {
+    Widget menuButton = GestureDetector(
+      onTap: () {
+        viewModel.title = 'menu';
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Icon(Icons.menu),
+      ),
+    );
+    Widget accountButton = GestureDetector(
+      onTap: () {
+        viewModel.title = 'account';
+        viewModel.onAccount();
+      },
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Icon(Icons.settings),
+      ),
+    );
     return Scaffold(
       appBar: AppBar(
-        title: Text('Mobile'),
-        backgroundColor: Colors.black,
+        title: Text(viewModel.title),
+        leading: menuButton,
+        actions: <Widget>[accountButton],
+        backgroundColor: Colors.blue,
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Text(
-              'You have pushed the button this many times: ',
+              'Home',
               style: TextStyle(fontSize: 14),
-            ),
-            Text(
-              '${viewModel.counter}',
             ),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add),
-        onPressed: viewModel.increment,
-        backgroundColor: Colors.black,
       ),
     );
   }
