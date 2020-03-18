@@ -6,8 +6,6 @@ import 'package:flutter/material.dart';
 import 'home_view_model.dart';
 
 part 'home_mobile.dart';
-part 'home_tablet.dart';
-part 'home_desktop.dart';
 
 class HomeView extends StatelessWidget {
   @override
