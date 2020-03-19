@@ -4,9 +4,14 @@ class _BottomSheetMobile extends StatelessWidget {
   final Widget body;
   final Color primaryColor;
   final Color secondaryColor;
+  final onClose;
 
-  _BottomSheetMobile(
-      {@required this.body, this.primaryColor, this.secondaryColor});
+  _BottomSheetMobile({
+    @required this.body,
+    this.primaryColor,
+    this.secondaryColor,
+    this.onClose,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,7 @@ class _BottomSheetMobile extends StatelessWidget {
           size: 30.0,
           color: secondaryColor,
         ),
-        onPressed: () => Navigator.of(context).pop(),
+        onPressed: () => onClose(),
       ),
     );
 

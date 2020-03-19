@@ -11,11 +11,13 @@ class BottomSheetWidget extends StatelessWidget {
   final Widget body;
   final Color primaryColor;
   final Color secondaryColor;
+  final  onClose;
 
   BottomSheetWidget({
     @required this.body,
     this.primaryColor = Colors.white,
     this.secondaryColor = Colors.blue,
+    @required this.onClose,
   });
   @override
   Widget build(BuildContext context) {
@@ -24,6 +26,7 @@ class BottomSheetWidget extends StatelessWidget {
         body: body,
         primaryColor: primaryColor,
         secondaryColor: secondaryColor,
+        onClose: onClose,
       ),
     );
   }

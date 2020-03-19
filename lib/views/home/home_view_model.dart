@@ -8,12 +8,16 @@ class HomeViewModel extends BaseViewModel {
 
   String _title;
 
+  bool _menuOpen;
+
   //List <Subject>
 
   // menu items -> subject; name id
   // on subject change : subjects
 
-  HomeViewModel({String title = 'Nell'}) : this._title = title;
+  HomeViewModel({String title = 'Nell', menuOpen = false})
+      : this._title = title,
+        this._menuOpen = menuOpen;
 
   Future init() async {
     // get subjects.
@@ -22,9 +26,16 @@ class HomeViewModel extends BaseViewModel {
   // get items .map .where
 
   String get title => this._title;
+   
+  bool get menuOpen => this._menuOpen;
 
   set title(String value) {
     this._title = value;
+    notifyListeners();
+  }
+
+  set menuOpen(bool value) {
+    this._menuOpen = value;
     notifyListeners();
   }
 

@@ -14,30 +14,31 @@ class __HomeMobileState extends State<_HomeMobile> {
   PersistentBottomSheetController menuController;
   @override
   Widget build(BuildContext context) {
+    void closeMenu() {
+      widget.viewModel.menuOpen = false;
+      Navigator.of(context).pop();
+    }
+
     void showMenu() {
       widget.viewModel.title = 'menu';
-      menuController = _scaffoldKey.currentState.showBottomSheet(
+      widget.viewModel.menuOpen = true;
+      _scaffoldKey.currentState.showBottomSheet(
         (context) => BottomSheetWidget(
+          onClose: () => closeMenu(),
           primaryColor: Colors.blue,
           secondaryColor: Colors.white,
-          body: Center(
-            child: Text(
-              'Menu',
-            ),
+          body: Column(
+            children: <Widget>[
+              Center(child: Text('Menu')),
+              SizedBox(height: 100)
+            ],
           ),
         ),
       );
     }
 
-    void closeMenu() {
-      if (menuController != null) {
-        menuController.close();
-        menuController = null;
-      }
-    }
-
     void menuTap() {
-      menuController == null ? showMenu() : closeMenu();
+      widget.viewModel.menuOpen ? closeMenu() : showMenu();
     }
 
     Widget menuButton = IconButton(
@@ -52,6 +53,7 @@ class __HomeMobileState extends State<_HomeMobile> {
 
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: Text(widget.viewModel.title),
         leading: menuButton,
