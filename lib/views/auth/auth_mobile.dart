@@ -51,6 +51,7 @@ class __AuthMobileState extends State<_AuthMobile> {
     Widget submitButton = RoundedButtonWidget(
       text: 'SUBMIT',
       boarder: false,
+      busy: widget.viewModel.busy,
       function: () {
         if (_register)
           widget.viewModel.signUp(
