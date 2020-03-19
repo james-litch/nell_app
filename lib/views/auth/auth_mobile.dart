@@ -79,12 +79,13 @@ class __AuthMobileState extends State<_AuthMobile> {
         (context) => BottomSheetWidget(
           body: Column(
             children: <Widget>[
-              SizedBox(height: 50),
+              SizedBox(height: 60),
               emailInput,
-              SizedBox(height: 15),
+              SizedBox(height: 20),
               passwordInput,
-              SizedBox(height: 30),
-              submitButton
+              SizedBox(height: 50),
+              submitButton,
+              SizedBox(height: 100),
             ],
           ),
         ),
@@ -97,14 +98,15 @@ class __AuthMobileState extends State<_AuthMobile> {
         (context) => BottomSheetWidget(
           body: Column(
             children: <Widget>[
-              SizedBox(height: 50),
+              SizedBox(height: 40),
               nameInput,
-              SizedBox(height: 15),
+              SizedBox(height: 20),
               emailInput,
-              SizedBox(height: 15),
+              SizedBox(height: 20),
               passwordInput,
-              SizedBox(height: 30),
-              submitButton
+              SizedBox(height: 50),
+              submitButton,
+              SizedBox(height: 60),
             ],
           ),
         ),
