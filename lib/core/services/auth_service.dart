@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'package:nell/core/base/base_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:nell/core/constants/api_constants.dart';
-import 'package:nell/core/models/token_model.dart';
 import 'package:nell/core/services/storage_service.dart';
 
 import '../locator.dart';
