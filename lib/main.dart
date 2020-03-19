@@ -27,7 +27,7 @@ class MainApplication extends StatelessWidget {
               builder: (context) => DialogManager(child: child)),
         ),
         navigatorKey: locator<NavigatorService>().navigatorKey,
-        theme: ThemeData(primaryColor: Colors.blue),
+        theme: ThemeData(primaryColor: Colors.blue, canvasColor: Colors.transparent),
         home: StartupView(),
         onGenerateRoute: generateRoute,
       ),
