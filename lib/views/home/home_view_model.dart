@@ -1,11 +1,9 @@
 import 'package:nell/core/base/base_view_model.dart';
 import 'package:nell/core/constants/route_names.dart';
 import 'package:nell/core/locator.dart';
-import 'package:nell/core/services/auth_service.dart';
 import 'package:nell/core/services/navigator_service.dart';
 
 class HomeViewModel extends BaseViewModel {
-  final AuthService _authService = locator<AuthService>();
   final NavigatorService _navigatorService = locator<NavigatorService>();
 
   String _title;
