@@ -1,11 +1,12 @@
 part of rounded_button_widget;
 
-class _RoundedButtonMobile extends StatelessWidget {
+class _RoundedButtonMobile extends StatefulWidget {
   final String text;
   final Color primaryColor;
   final Color secondaryColor;
   final bool boarder;
   final function;
+  final bool busy;
 
   _RoundedButtonMobile({
     @required this.text,
@@ -13,31 +14,43 @@ class _RoundedButtonMobile extends StatelessWidget {
     @required this.secondaryColor,
     @required this.boarder,
     @required this.function,
+    this.busy = false,
   });
+
+  @override
+  __RoundedButtonMobileState createState() => __RoundedButtonMobileState();
+}
+
+class __RoundedButtonMobileState extends State<_RoundedButtonMobile> {
   @override
   Widget build(BuildContext context) {
-    Color boarderColor = boarder ? secondaryColor : primaryColor;
+    Color boarderColor = widget.boarder ? widget.secondaryColor : widget.primaryColor;
     return RaisedButton(
-      onPressed: () => function(),
+      onPressed: () => widget.function(),
       highlightElevation: 0.0,
-      splashColor: secondaryColor,
-      highlightColor: secondaryColor,
+      splashColor: widget.secondaryColor,
+      highlightColor: widget.secondaryColor,
       elevation: 0.0,
-      color: primaryColor,
+      color: widget.primaryColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(30.0),
         side: BorderSide(color: boarderColor, width: 2.0),
       ),
       child: Padding(
         padding: EdgeInsets.all(10.0),
-        child: Text(
-          text,
+        child: !widget.busy? 
+        Text(
+          widget.text,
           style: TextStyle(
             fontWeight: FontWeight.bold,
-            color: secondaryColor,
+            color: widget.secondaryColor,
             fontSize: 20,
           ),
-        ),
+        ):
+        CircularProgressIndicator(
+              strokeWidth: 3,
+              valueColor: AlwaysStoppedAnimation(widget.secondaryColor),
+            )
       ),
     );
   }
