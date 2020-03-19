@@ -24,30 +24,14 @@ class _BottomSheetMobile extends StatelessWidget {
 
     return BottomSheet(
       builder: (BuildContext context) {
-        return DecoratedBox(
-          decoration: BoxDecoration(color: secondaryColor),
-          child: ClipRect(
-            child: Container(
-              height: MediaQuery.of(context).size.height * 0.5,
-              decoration: BoxDecoration(
-                color: primaryColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
-                ),
-              ),
-              child: Padding(
-                padding:
-                    MediaQuery.of(context).orientation == Orientation.portrait
-                        ? EdgeInsets.all(8.0)
-                        : EdgeInsets.fromLTRB(20.0, 8.0, 8.0, 20.0),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: <Widget>[closeButton, Center(child: body)],
-                  ),
-                ),
+        return ClipRRect(
+          borderRadius: BorderRadius.circular(30.0),
+          child: Container(
+            color: primaryColor,
+            child: Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: Wrap(
+                children: <Widget>[closeButton, body],
               ),
             ),
           ),
