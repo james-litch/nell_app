@@ -1,33 +1,69 @@
 import 'package:nell/core/base/base_view_model.dart';
 import 'package:nell/core/constants/route_names.dart';
 import 'package:nell/core/locator.dart';
+import 'package:nell/core/models/user_model.dart';
 import 'package:nell/core/services/navigator_service.dart';
+import 'package:nell/core/services/storage_service.dart';
 
 class HomeViewModel extends BaseViewModel {
   final NavigatorService _navigatorService = locator<NavigatorService>();
+  final StorageService _storageService = locator<StorageService>();
 
   String _title;
 
   bool _menuOpen;
 
-  //List <Subject>
+  bool _showTabs;
 
-  // menu items -> subject; name id
-  // on subject change : subjects
+  int _currentTab;
 
-  HomeViewModel({String title = 'Nell', menuOpen = false})
-      : this._title = title,
-        this._menuOpen = menuOpen;
+  String _currentSubject; // id
+
+  User _user;
+
+  String _subject;
+
+// want user ->
+  // name email
+
+// want subjects ->
+  // name id exams(id name description) questions current question(id name description) dictionary
+  HomeViewModel({
+    String title = 'Nell',
+    bool showTabs = false,
+    int currentTab = 0,
+    subject = 'booo',
+    menuOpen = false,
+  })  : this._title = title,
+        this._menuOpen = menuOpen,
+        this._showTabs = showTabs,
+        this._subject = subject,
+        this._currentTab = currentTab;
 
   Future init() async {
-    // get subjects.
+    _user = _storageService.user;
   }
 
-  // get items .map .where
+  Future onAccount() async {
+    _navigatorService.navigateTo(AccountViewRoute);
+  }
 
-  String get title => this._title;
-   
-  bool get menuOpen => this._menuOpen;
+  get showTabs => _showTabs;
+
+  get currentTab => _currentTab;
+
+  get subject => _subject;
+
+  get title => this._title;
+
+  get menuOpen => this._menuOpen;
+
+  get user => this._user;
+
+  set currentTab(int index) {
+    this._currentTab = index;
+    notifyListeners();
+  }
 
   set title(String value) {
     this._title = value;
@@ -39,7 +75,14 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future onAccount() async {
-    _navigatorService.navigateTo(AccountViewRoute);
+  set showTabs(bool value) {
+    this._showTabs = value;
+    notifyListeners();
   }
+
+   set subject(String value) {
+    this._subject = value;
+    notifyListeners();
+  }
+
 }
