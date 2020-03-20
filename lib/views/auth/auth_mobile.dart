@@ -10,7 +10,7 @@ class _AuthMobile extends StatefulWidget {
 }
 
 class __AuthMobileState extends State<_AuthMobile> {
-   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+  GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _nameController = TextEditingController();
@@ -78,6 +78,7 @@ class __AuthMobileState extends State<_AuthMobile> {
       clearControllers();
       _scaffoldKey.currentState.showBottomSheet(
         (context) => BottomSheetWidget(
+          onClose: () => Navigator.of(context).pop(),
           body: Column(
             children: <Widget>[
               SizedBox(height: 60),
@@ -97,6 +98,7 @@ class __AuthMobileState extends State<_AuthMobile> {
       clearControllers();
       _scaffoldKey.currentState.showBottomSheet(
         (context) => BottomSheetWidget(
+          onClose: () => Navigator.of(context).pop(),
           body: Column(
             children: <Widget>[
               SizedBox(height: 40),
