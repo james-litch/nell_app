@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:nell/core/base/base_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:nell/core/constants/api_constants.dart';
+import 'package:nell/core/models/user_model.dart';
 import 'package:nell/core/services/storage_service.dart';
 
 import '../locator.dart';
@@ -27,10 +28,14 @@ class AuthService extends BaseService {
 
     _storageService.tokens = json.encode(data['tokens']);
 
+    User user = User.fromJson(data['user']);
+
+    _storageService.user = user;
+
     return true;
   }
 
   Future logOut() => _storageService.logOut();
 
-  bool userLoggedIn() => _storageService.tokens !=null;
+  bool userLoggedIn() => _storageService.tokens != null;
 }
