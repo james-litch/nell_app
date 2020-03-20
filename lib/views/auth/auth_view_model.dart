@@ -82,6 +82,7 @@ class AuthViewModel extends BaseViewModel {
     }
     user {
       name
+      email
       subjects{
         subject{
           name
@@ -102,6 +103,7 @@ class AuthViewModel extends BaseViewModel {
     }
     user {
       name
+      email
       subjects{
         subject{
           name
