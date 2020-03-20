@@ -14,15 +14,15 @@ class LocatorInjector {
   static Logger _log = getLogger('LocatorInjector');
 
   static Future<void> setupLocator() async {
+    _log.d('Initializing Storage Service');
+    var instance = await StorageService.getInstance();
+    locator.registerSingleton<StorageService>(instance);
+
     _log.d('Initializing Navigator Service');
     locator.registerLazySingleton(() => NavigatorService());
 
     _log.d('Initializing Dialog Service');
     locator.registerLazySingleton(() => DialogService());
-
-    _log.d('Initializing Storage Service');
-    var instance = await StorageService.getInstance();
-    locator.registerSingleton<StorageService>(instance);
 
     _log.d('Initializing Auth Service');
     locator.registerLazySingleton(() => AuthService());
