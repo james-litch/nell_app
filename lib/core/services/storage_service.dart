@@ -39,6 +39,8 @@ class StorageService extends BaseService {
     return User.fromJson(json.decode(userJson));
   }
 
+  // store completed exams
+
   set user(User userToSave) =>
       _saveToDisk(UserKey, json.encode(userToSave.toJson()));
 
