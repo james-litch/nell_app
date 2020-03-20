@@ -21,8 +21,7 @@ class __HomeMobileState extends State<_HomeMobile> {
     }
 
     void showMenu() {
-      widget.viewModel.title = 'menu';
-      widget.viewModel.menuOpen = true;
+            widget.viewModel.menuOpen = true;
       widget.viewModel.showTabs = false;
       _scaffoldKey.currentState.showBottomSheet(
         (context) => BottomSheetWidget(
@@ -67,12 +66,15 @@ class __HomeMobileState extends State<_HomeMobile> {
           Tab(icon: Icon(Icons.import_contacts)),
           Tab(icon: Icon(Icons.font_download)),
         ]);
+
     Widget _homeTab = Center(
       child: Text('home| lecture| feedback'),
     );
+
     Widget _examTab = Center(
       child: Text('exams'),
     );
+
     Widget _dictionaryTab = Center(
       child: Text('dictionary'),
     );
