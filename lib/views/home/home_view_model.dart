@@ -4,14 +4,12 @@ import 'package:nell/core/locator.dart';
 import 'package:nell/core/models/subject_model.dart';
 import 'package:nell/core/models/user_model.dart';
 import 'package:nell/core/repositories/subject_repo.dart';
-import 'package:nell/core/services/api_service.dart';
 import 'package:nell/core/services/navigator_service.dart';
 import 'package:nell/core/services/storage_service.dart';
 
 class HomeViewModel extends BaseViewModel {
   final NavigatorService _navigatorService = locator<NavigatorService>();
   final StorageService _storageService = locator<StorageService>();
-  final ApiService _apiService = locator<ApiService>();
   final SubjectRepo subjectRepo = SubjectRepo();
 
   String _title;
