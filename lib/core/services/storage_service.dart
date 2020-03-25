@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:nell/core/models/token_model.dart';
 import 'package:nell/core/models/user_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import '../../core/base/base_service.dart';
@@ -10,7 +11,7 @@ class StorageService extends BaseService {
 
   static const String UserKey = 'USER';
   static const String SubjectsKey = 'SUBJECTS';
-  static const String AuthTokens = 'AUTH_TOKENS';
+  static const String TokensKey = 'AUTH_TOKENS';
   static const String LoggedIn = 'LOGGED_IN';
 
   static Future<StorageService> getInstance() async {
@@ -31,20 +32,23 @@ class StorageService extends BaseService {
 
   User get user {
     var userJson = _getFromDisk(UserKey);
-
     if (userJson == null) return null;
-
     return User.fromJson(json.decode(userJson));
   }
 
-  // store completed exams
+  Tokens get tokens {
+    var tokenJson = _getFromDisk(TokensKey);
+
+    if (tokenJson == null) return null;
+
+    return Tokens.fromJson(json.decode(tokenJson));
+  }
 
   set user(User userToSave) =>
       _saveToDisk(UserKey, json.encode(userToSave.toJson()));
 
-  set tokens(String tokens) => _saveToDisk(AuthTokens, tokens);
-
-  String get tokens => _getFromDisk(AuthTokens);
+  set tokens(Tokens tokensToSave) =>
+      _saveToDisk(TokensKey, json.encode(tokensToSave.toJson()));
 
   void _saveToDisk<T>(String key, T content) {
     log.i('StorageService: _saveToDisk. key: $key value: $content');
