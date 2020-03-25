@@ -17,20 +17,21 @@ class _BottomSheetMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Widget closeButton = IconButton(
-      icon: Icon(
-        Icons.close,
-        size: 30.0,
-        color: secondaryColor,
+    Widget closeButton = Align(
+      alignment: Alignment.topLeft,
+      child: IconButton(
+        icon: Icon(
+          Icons.close,
+          size: 30.0,
+          color: secondaryColor,
+        ),
+        onPressed: () => onClose(),
       ),
-      onPressed: () => onClose(),
     );
 
     Widget sheetTitle = Expanded(
-       
       child: Text(
         title,
-        textAlign: TextAlign.center,
         style: TextStyle(
           fontSize: 20,
           color: secondaryColor,
