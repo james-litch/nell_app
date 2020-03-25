@@ -1,13 +1,18 @@
 import 'package:nell/core/base/base_view_model.dart';
 import 'package:nell/core/constants/route_names.dart';
 import 'package:nell/core/locator.dart';
+import 'package:nell/core/models/subject_model.dart';
 import 'package:nell/core/models/user_model.dart';
+import 'package:nell/core/repositories/subject_repo.dart';
+import 'package:nell/core/services/api_service.dart';
 import 'package:nell/core/services/navigator_service.dart';
 import 'package:nell/core/services/storage_service.dart';
 
 class HomeViewModel extends BaseViewModel {
   final NavigatorService _navigatorService = locator<NavigatorService>();
   final StorageService _storageService = locator<StorageService>();
+  final ApiService _apiService = locator<ApiService>();
+  final SubjectRepo subjectRepo = SubjectRepo();
 
   String _title;
 
@@ -17,14 +22,11 @@ class HomeViewModel extends BaseViewModel {
 
   int _currentTab;
 
-  String _currentSubject; // id
-
   User _user;
 
-  String _subject;
+  Subject _currentSubject;
 
-// want user ->
-  // name email
+  List<Subject> _subjects;
 
 // want subjects ->
   // name id exams(id name description) questions current question(id name description) dictionary
@@ -32,16 +34,25 @@ class HomeViewModel extends BaseViewModel {
     String title = 'Nell',
     bool showTabs = false,
     int currentTab = 0,
-    subject = 'booo',
     menuOpen = false,
   })  : this._title = title,
         this._menuOpen = menuOpen,
         this._showTabs = showTabs,
-        this._subject = subject,
         this._currentTab = currentTab;
 
   Future init() async {
+    setBusy(true);
     _user = _storageService.user;
+    _subjects = await subjectRepo.getSubjects();
+    setBusy(false);
+    notifyListeners();
+  }
+
+  Future refreshPage() async {
+    setBusy(true);
+    _subjects = await subjectRepo.getSubjects();
+    setBusy(false);
+    notifyListeners();
   }
 
   Future onAccount() async {
@@ -52,13 +63,15 @@ class HomeViewModel extends BaseViewModel {
 
   get currentTab => _currentTab;
 
-  get subject => _subject;
+  get subjects => _subjects;
 
   get title => this._title;
 
   get menuOpen => this._menuOpen;
 
   get user => this._user;
+
+  get currentSubject => this._currentSubject;
 
   set currentTab(int index) {
     this._currentTab = index;
@@ -80,9 +93,22 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-   set subject(String value) {
-    this._subject = value;
+  set currentSubject(int value) {
+    this._currentSubject = _subjects[value];
     notifyListeners();
   }
 
+  String homePageQuery = '''
+    query {
+      me {
+        name
+        subjects{
+          admin
+          subject{
+            name
+            id
+          }
+       }
+    }
+  ''';
 }
