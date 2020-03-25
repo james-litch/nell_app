@@ -7,6 +7,14 @@ class _AccountMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget logoutButton = RoundedButtonWidget(
+      text: 'LOGOUT',
+      primaryColor: Colors.blue,
+      secondaryColor: Colors.white,
+      boarder: false,
+      function: () => viewModel.logout(),
+    );
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -16,15 +24,7 @@ class _AccountMobile extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            RoundedButtonWidget(
-              text: 'LOGOUT',
-              primaryColor: Colors.blue,
-              secondaryColor: Colors.white,
-              boarder: false,
-              function: ()=>viewModel.logout(),
-            ),
-          ],
+          children: <Widget>[logoutButton],
         ),
       ),
     );
