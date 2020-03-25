@@ -8,6 +8,7 @@ import 'core/services/dialog_service.dart';
 import 'core/services/navigator_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:nell/theme/themes.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,6 +17,7 @@ void main() async {
 }
 
 class MainApplication extends StatelessWidget {
+final ThemeData lightTheme = Themes.lightTheme;
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -27,7 +29,7 @@ class MainApplication extends StatelessWidget {
               builder: (context) => DialogManager(child: child)),
         ),
         navigatorKey: locator<NavigatorService>().navigatorKey,
-        theme: ThemeData(primaryColor: Colors.blue, canvasColor: Colors.transparent),
+        theme: lightTheme,
         home: StartupView(),
         onGenerateRoute: generateRoute,
       ),
