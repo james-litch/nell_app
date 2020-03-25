@@ -1,9 +1,6 @@
-import 'package:nell/core/models/subject_model.dart';
-
 class User {
   String name;
   String email;
-
 
   // Tokens tokens
 
@@ -18,4 +15,3 @@ class User {
         'email': email,
       };
 }
-
