@@ -3,9 +3,9 @@ import 'package:nell/core/models/subject_model.dart';
 class User {
   String name;
   String email;
-  List<Subject> subjects;
 
-  // 
+
+  // Tokens tokens
 
   User();
 
