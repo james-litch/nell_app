@@ -9,13 +9,10 @@ import 'package:nell/core/services/dialog_service.dart';
 import 'package:nell/core/services/navigator_service.dart';
 
 class AuthViewModel extends BaseViewModel {
-  final AuthService _authService = locator<AuthService>();
-  final DialogService _dialogService = locator<DialogService>();
+  AuthService _authService = locator<AuthService>();
+  DialogService _dialogService = locator<DialogService>();
 
-  Future logIn({
-    @required String email,
-    @required String password,
-  }) async {
+  Future logIn({@required String email, @required String password}) async {
     setBusy(true);
 
     var body = {
@@ -36,8 +33,7 @@ class AuthViewModel extends BaseViewModel {
         title: 'Login Failure',
         description: result,
       );
-    }
-    else {
+    } else {
       locator<NavigatorService>().navigateToAndReplace(HomeViewRoute);
     }
   }
