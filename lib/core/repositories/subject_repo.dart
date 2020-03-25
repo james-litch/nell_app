@@ -5,11 +5,11 @@ import 'dart:convert';
 import 'package:nell/core/locator.dart';
 import 'package:nell/core/models/subject_model.dart';
 import 'package:nell/core/services/api_service.dart';
-import 'package:nell/core/services/dialog_service.dart';
+// import 'package:nell/core/services/dialog_service.dart';
 
 class SubjectRepo {
   ApiService _apiService = locator<ApiService>();
-  DialogService _dialogService = locator<DialogService>();
+  // DialogService _dialogService = locator<DialogService>();
 
   Future<List> getSubjects() async {
     var body = {
