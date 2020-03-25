@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:nell/core/base/base_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:nell/core/constants/api_constants.dart';
+import 'package:nell/core/models/token_model.dart';
 import 'package:nell/core/models/user_model.dart';
 import 'package:nell/core/services/storage_service.dart';
 
@@ -20,16 +21,15 @@ class AuthService extends BaseService {
 
     if (resBody['errors'] != null) return (resBody['errors'][0]['message']);
 
-    // create user => User details || tokens || subjects (id name admin?)
-
     var data = resBody['data']['signIn'] != null
         ? resBody['data']['signIn']
         : resBody['data']['signUp'];
 
-    _storageService.tokens = json.encode(data['tokens']);
+    Tokens tokens = Tokens.fromJson(data['tokens']);
+
+    _storageService.tokens = tokens;
 
     User user = User.fromJson(data['user']);
-
     _storageService.user = user;
 
     return true;
