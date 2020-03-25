@@ -5,10 +5,14 @@ class Tokens {
   Tokens();
 
   Tokens.fromJson(Map<String, dynamic> json)
-      : access = json['access-token'],
-        refresh = json['refresh-token'];
+      : refresh = json['refresh-token'] != null
+            ? json['refresh-token']
+            : json['refreshToken'],
+        access = json['access-token'] != null
+            ? json['access-token']
+            : json['accessToken'];
 
-  Map<String, dynamic> toJson() => {
+  Map<String, String> toJson() => {
         'access-token': access,
         'refresh-token': refresh,
       };
