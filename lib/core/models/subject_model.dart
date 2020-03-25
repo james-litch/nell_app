@@ -4,10 +4,10 @@ class Subject extends BaseModel {
   final String id;
   final String name;
   final bool isAdmin;
-  List<Exam>exams;
-  Map<String, String> definitions;
-  List<Question> questions;
-  List<String> feedback;
+  // final List<Exam>exams;
+  // final Map<String, String> definitions;
+  // final List<Question> questions;
+  // final List<String> feedback;
 
   Subject({this.id, this.name, this.isAdmin});
 
