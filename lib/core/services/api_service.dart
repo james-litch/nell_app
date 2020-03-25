@@ -9,7 +9,7 @@ import '../locator.dart';
 class ApiService extends BaseService {
   final StorageService _storageService = locator<StorageService>();
 
-   getHeaders() {
+  getHeaders() {
     var headers = _storageService.tokens.toJson();
 
     headers.addAll({'Content-Type': 'application/json'});
@@ -17,13 +17,13 @@ class ApiService extends BaseService {
     return headers;
   }
 
-  Future persistToken() {
+  Future persistToken() async {
     // TODO: get tokens from res headers.
+    return true;
   }
 
   Future query(String body) async {
-
-    Map<String,String> headers = getHeaders();
+    Map<String, String> headers = getHeaders();
     var response = await http.post(
       apiEndpoint,
       headers: headers,
