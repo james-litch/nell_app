@@ -26,8 +26,6 @@ class HomeViewModel extends BaseViewModel {
 
   List<Subject> _subjects;
 
-// want subjects ->
-  // name id exams(id name description) questions current question(id name description) dictionary
   HomeViewModel({
     String title = 'Nell',
     bool showTabs = false,
@@ -95,18 +93,4 @@ class HomeViewModel extends BaseViewModel {
     this._currentSubject = _subjects[value];
     notifyListeners();
   }
-
-  String homePageQuery = '''
-    query {
-      me {
-        name
-        subjects{
-          admin
-          subject{
-            name
-            id
-          }
-       }
-    }
-  ''';
 }
