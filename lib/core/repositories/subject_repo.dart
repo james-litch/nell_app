@@ -14,12 +14,11 @@ class SubjectRepo {
   Future<List> getSubjects() async {
     var body = {
       "query": subjectsQuery,
-      "variables": {},
     };
 
     var res = await _apiService.query(json.encode(body));
 
-    if (res['errors'] != null) print(res);
+    if(res is String) print(res);
 
     var subjects = (res['data']['me']['subjects'] as List)
         .map((subject) => Subject.fromJson(subject))
@@ -36,6 +35,10 @@ class SubjectRepo {
           subject {
             name
             id
+            currentQuestions {
+              question
+              id
+            }
           }
         }
       }
