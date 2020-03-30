@@ -16,7 +16,17 @@ class Themes {
         fontWeight: FontWeight.bold,
         color: Colors.white,
       ),
+      headline3: TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+        color: Colors.blue,
+      ),
       bodyText1: TextStyle(
+        fontSize: 15,
+        fontWeight: FontWeight.bold,
+        color: Colors.blue,
+      ),
+      bodyText2: TextStyle(
         fontSize: 15,
         fontWeight: FontWeight.bold,
         color: Colors.blue,
