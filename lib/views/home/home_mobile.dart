@@ -69,6 +69,26 @@ class __HomeMobileState extends State<_HomeMobile> {
       viewModel.menuOpen ? closeMenu() : showMenu();
     }
 
+    Widget currentQuestions = viewModel.currentSubject == null
+        ? Center(child: Text('no subject selected'))
+        : ListView.builder(
+            itemCount: viewModel.currentSubject.currentQuestions.length,
+            itemBuilder: (context, int index) {
+              return Card(
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.blue, width: 2),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: ListTile(
+                  title: Text(
+                    '${viewModel.currentSubject.currentQuestions[index].question}',
+                    style: theme.textTheme.bodyText1.copyWith(fontSize: 25),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            });
+
     Widget menuButton = IconButton(
       icon: Icon(Icons.menu, size: 30),
       onPressed: () => menuTap(),
@@ -95,68 +115,57 @@ class __HomeMobileState extends State<_HomeMobile> {
           viewModel.currentTab = index;
         },
         labelColor: Colors.blue,
-        labelPadding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 20.0),
+        labelPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
         indicatorPadding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 20.0),
         indicatorSize: TabBarIndicatorSize.label,
         tabs: [
-          Tab(icon: Icon(Icons.home)),
-          Tab(icon: Icon(Icons.import_contacts)),
-          Tab(icon: Icon(Icons.font_download)),
+          Tab(icon: Icon(Icons.home, size: 30)),
+          Tab(icon: Icon(Icons.import_contacts, size: 27)),
+          Tab(icon: Icon(Icons.font_download, size: 27)),
         ]);
 
-    Widget _homeTab = Padding(
-      padding: EdgeInsets.all(20.0),
-      child: SingleChildScrollView(
-        child: Column(
+    Widget usersButton = RoundedButtonWidget(
+      text: 'Users',
+      primaryColor: Colors.blue,
+      secondaryColor: Colors.white,
+      boarder: true,
+      function: () {},
+    );
+
+    Widget feedbackButton = RoundedButtonWidget(
+      text: 'Feedback',
+      primaryColor: Colors.blue,
+      secondaryColor: Colors.white,
+      boarder: true,
+      function: () {},
+    );
+
+    Widget _homeTab = BasePageWidget(
+        pageName: 'Home',
+        content: Column(
           children: <Widget>[
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text('Home', style: theme.textTheme.headline1),
-            ),
-            SizedBox(height: 50),
+            SizedBox(height: 20),
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Placeholder(fallbackHeight: 100, fallbackWidth: 150),
-                Placeholder(fallbackHeight: 100, fallbackWidth: 150),
-              ],
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: <Widget>[usersButton, feedbackButton],
             ),
-            SizedBox(
-              height: 50,
+            SizedBox(height: 20),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Current Questions',
+                style: theme.textTheme.headline3,
+              ),
             ),
-            Text('Current Questions', style: theme.textTheme.bodyText1),
-            Placeholder(
-              fallbackHeight: 400,
-              fallbackWidth: 300,
-            )
+            SizedBox(height: 10),
+            Expanded(child: currentQuestions),
           ],
-        ),
-      ),
-    );
+        ));
 
-    Widget _examTab = Padding(
-      padding: EdgeInsets.all(20.0),
-      child: Column(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text('Exams', style: theme.textTheme.headline1),
-          ),
-        ],
-      ),
-    );
+    Widget _examTab = BasePageWidget(pageName: 'Exams', content: Text('hello'));
 
-    Widget _dictionaryTab = Padding(
-      padding: EdgeInsets.all(20.0),
-      child: Column(
-        children: <Widget>[
-          Align(
-            alignment: Alignment.topLeft,
-            child: Text('Dictionary', style: theme.textTheme.headline1),
-          ),
-        ],
-      ),
-    );
+    Widget _dictionaryTab =
+        BasePageWidget(pageName: 'Dictionary', content: Text('hello'));
 
     Widget _initialBody = Padding(
       padding: EdgeInsets.all(20),
