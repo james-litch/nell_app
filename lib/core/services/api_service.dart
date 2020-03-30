@@ -18,12 +18,12 @@ class ApiService extends BaseService {
   }
 
   Future persistToken() async {
-    // TODO: get tokens from res headers.
     return true;
   }
 
   Future query(String body) async {
-    Map<String, String> headers = getHeaders();
+    log.i("ApiService: query");
+    var headers = getHeaders();
     var response = await http.post(
       apiEndpoint,
       headers: headers,
