@@ -10,7 +10,8 @@ class _SubjectMenuItemMobile extends StatelessWidget {
     ThemeData theme = Theme.of(context);
     return ListTile(
       onTap: onTap,
-      title: Center(
+      title: Padding(
+        padding: EdgeInsets.all(15),
         child: Text(
           '${subject.name}',
           textAlign: TextAlign.center,
