@@ -65,27 +65,6 @@ class __HomeMobileState extends State<_HomeMobile> {
       viewModel.menuOpen ? closeMenu() : showMenu();
     }
 
-    Widget currentQuestions = viewModel.currentSubject == null
-        ? Center(child: Text('no subject selected'))
-        : ListView.builder(
-            itemCount: viewModel.currentSubject.currentQuestions.length,
-            itemBuilder: (context, int index) {
-              return Card(
-                margin: EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.blue, width: 2),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: ListTile(
-                  title: Text(
-                    '${viewModel.currentSubject.currentQuestions[index].question}',
-                    style: theme.textTheme.bodyText1.copyWith(fontSize: 25),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
-              );
-            });
-
     Widget menuButton = IconButton(
       icon: Icon(Icons.menu, size: 30),
       onPressed: () => menuTap(),
@@ -137,6 +116,27 @@ class __HomeMobileState extends State<_HomeMobile> {
       function: () {},
     );
 
+    Widget currentQuestions = viewModel.currentSubject == null
+        ? Center(child: Text('no subject selected'))
+        : ListView.builder(
+            itemCount: viewModel.currentSubject.currentQuestions.length,
+            itemBuilder: (context, int index) {
+              return Card(
+                margin: EdgeInsets.all(10),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.blue, width: 2),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: ListTile(
+                  title: Text(
+                    '${viewModel.currentSubject.currentQuestions[index].question}',
+                    style: theme.textTheme.bodyText1.copyWith(fontSize: 25),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              );
+            });
+
     Widget searchBar = RoundedTextBoxWidget(
       controller: dictionarySerch,
       isPassword: false,
@@ -152,34 +152,12 @@ class __HomeMobileState extends State<_HomeMobile> {
         : ListView.builder(
             itemCount: viewModel.currentSubject.dictionary.length,
             itemBuilder: (context, int index) {
-              return Card(
-                margin: EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.blue, width: 2),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: ListTile(
-                  title: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      '${viewModel.currentSubject.dictionary[index].phrase}',
-                      style: theme.textTheme.headline3,
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                  subtitle: Padding(
-                    padding: const EdgeInsets.all(10.0),
-                    child: Text(
-                      '${viewModel.currentSubject.dictionary[index].definition}',
-                      style: theme.textTheme.bodyText2.copyWith(fontSize: 15),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              );
+              return DefinitionCardWidget(
+                  definition: viewModel.currentSubject.dictionary[index],
+                  onTap: () {});
             });
 
-    Widget _homeTab = BasePageWidget(
+    Widget _homePage = BasePageWidget(
         pageName: 'Home',
         content: Column(
           children: <Widget>[
@@ -201,9 +179,10 @@ class __HomeMobileState extends State<_HomeMobile> {
           ],
         ));
 
-    Widget _examTab = BasePageWidget(pageName: 'Exams', content: Text('hello'));
+    Widget _examPage =
+        BasePageWidget(pageName: 'Exams', content: Text('hello'));
 
-    Widget _dictionaryTab = BasePageWidget(
+    Widget _dictionaryPage = BasePageWidget(
       pageName: 'Dictionary',
       content: Column(
         children: <Widget>[
@@ -231,7 +210,7 @@ class __HomeMobileState extends State<_HomeMobile> {
       ),
     );
 
-    List<Widget> _pages = [_homeTab, _examTab, _dictionaryTab];
+    List<Widget> _pages = [_homePage, _examPage, _dictionaryPage];
     return DefaultTabController(
       length: 3,
       child: Scaffold(
