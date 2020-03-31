@@ -121,19 +121,8 @@ class __HomeMobileState extends State<_HomeMobile> {
         : ListView.builder(
             itemCount: viewModel.currentSubject.currentQuestions.length,
             itemBuilder: (context, int index) {
-              return Card(
-                margin: EdgeInsets.all(10),
-                shape: RoundedRectangleBorder(
-                  side: BorderSide(color: Colors.blue, width: 2),
-                  borderRadius: BorderRadius.circular(20),
-                ),
-                child: ListTile(
-                  title: Text(
-                    '${viewModel.currentSubject.currentQuestions[index].question}',
-                    style: theme.textTheme.bodyText1.copyWith(fontSize: 25),
-                    textAlign: TextAlign.center,
-                  ),
-                ),
+              return QuestionCardWidget(
+                question: viewModel.currentSubject.currentQuestions[index],
               );
             });
 
