@@ -39,6 +39,11 @@ class SubjectRepo {
               question
               id
             }
+            dictionary{
+              id
+              phrase
+              definition
+            }
           }
         }
       }
