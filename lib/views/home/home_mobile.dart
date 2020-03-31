@@ -12,6 +12,7 @@ class _HomeMobile extends StatefulWidget {
 class __HomeMobileState extends State<_HomeMobile> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   PersistentBottomSheetController menuController;
+  TextEditingController dictionarySerch = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,11 +26,6 @@ class __HomeMobileState extends State<_HomeMobile> {
       Navigator.of(context).pop();
     }
 
-    Widget spinner = Center(
-      child: CircularProgressIndicator(
-          strokeWidth: 3, valueColor: AlwaysStoppedAnimation(Colors.white)),
-    );
-
     void menuOnTap(index) {
       viewModel.currentSubject = index;
       viewModel.title = subjects[index].name;
@@ -39,7 +35,7 @@ class __HomeMobileState extends State<_HomeMobile> {
     Widget menuBody = Container(
       height: 500,
       child: viewModel.busy
-          ? spinner
+          ? SpinnerWidget()
           : ListView.builder(
               itemCount: viewModel.subjects.length,
               itemBuilder: (context, int index) {
@@ -75,6 +71,7 @@ class __HomeMobileState extends State<_HomeMobile> {
             itemCount: viewModel.currentSubject.currentQuestions.length,
             itemBuilder: (context, int index) {
               return Card(
+                margin: EdgeInsets.all(10),
                 shape: RoundedRectangleBorder(
                   side: BorderSide(color: Colors.blue, width: 2),
                   borderRadius: BorderRadius.circular(20),
@@ -128,7 +125,7 @@ class __HomeMobileState extends State<_HomeMobile> {
       text: 'Users',
       primaryColor: Colors.blue,
       secondaryColor: Colors.white,
-      boarder: true,
+      boarder: false,
       function: () {},
     );
 
@@ -136,9 +133,51 @@ class __HomeMobileState extends State<_HomeMobile> {
       text: 'Feedback',
       primaryColor: Colors.blue,
       secondaryColor: Colors.white,
-      boarder: true,
+      boarder: false,
       function: () {},
     );
+
+    Widget searchBar = RoundedTextBoxWidget(
+      controller: dictionarySerch,
+      isPassword: false,
+      label: 'Search',
+      primaryColor: Colors.white,
+      secondaryColor: Colors.blue,
+      boarder: true,
+      icon: Icons.search,
+    );
+
+    Widget dictionaryDefs = viewModel.currentSubject == null
+        ? Center(child: Text('no subject selected'))
+        : ListView.builder(
+            itemCount: viewModel.currentSubject.dictionary.length,
+            itemBuilder: (context, int index) {
+              return Card(
+                margin: EdgeInsets.all(10),
+                shape: RoundedRectangleBorder(
+                  side: BorderSide(color: Colors.blue, width: 2),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: ListTile(
+                  title: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      '${viewModel.currentSubject.dictionary[index].phrase}',
+                      style: theme.textTheme.headline3,
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                  subtitle: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Text(
+                      '${viewModel.currentSubject.dictionary[index].definition}',
+                      style: theme.textTheme.bodyText2.copyWith(fontSize: 15),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+              );
+            });
 
     Widget _homeTab = BasePageWidget(
         pageName: 'Home',
@@ -157,15 +196,24 @@ class __HomeMobileState extends State<_HomeMobile> {
                 style: theme.textTheme.headline3,
               ),
             ),
-            SizedBox(height: 10),
+            SizedBox(height: 20),
             Expanded(child: currentQuestions),
           ],
         ));
 
     Widget _examTab = BasePageWidget(pageName: 'Exams', content: Text('hello'));
 
-    Widget _dictionaryTab =
-        BasePageWidget(pageName: 'Dictionary', content: Text('hello'));
+    Widget _dictionaryTab = BasePageWidget(
+      pageName: 'Dictionary',
+      content: Column(
+        children: <Widget>[
+          SizedBox(height: 20),
+          searchBar,
+          SizedBox(height: 20),
+          Expanded(child: dictionaryDefs)
+        ],
+      ),
+    );
 
     Widget _initialBody = Padding(
       padding: EdgeInsets.all(20),
