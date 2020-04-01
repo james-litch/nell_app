@@ -12,8 +12,6 @@ class _HomeMobile extends StatefulWidget {
 class __HomeMobileState extends State<_HomeMobile> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   PersistentBottomSheetController menuController;
-  TextEditingController dictionarySerch = TextEditingController();
-  TextEditingController feedbackText = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -103,138 +101,7 @@ class __HomeMobileState extends State<_HomeMobile> {
           Tab(icon: Icon(Icons.forum, size: 27))
         ]);
 
-    Widget usersButton = RoundedButtonWidget(
-      text: 'Users',
-      primaryColor: Colors.blue,
-      secondaryColor: Colors.white,
-      boarder: false,
-      function: () {},
-    );
-
-    Widget currentQuestions = viewModel.currentSubject == null
-        ? Center(child: Text('no subject selected'))
-        : ListView.builder(
-            itemCount: viewModel.currentSubject.currentQuestions.length,
-            itemBuilder: (context, int index) {
-              return QuestionCardWidget(
-                question: viewModel.currentSubject.currentQuestions[index],
-                onTap: () {},
-              );
-            });
-
-    Widget searchBar = RoundedTextBoxWidget(
-      controller: dictionarySerch,
-      isPassword: false,
-      label: 'Search',
-      primaryColor: Colors.white,
-      secondaryColor: Colors.blue,
-      boarder: true,
-      icon: Icons.search,
-    );
-
-    Widget dictionaryDefs = viewModel.currentSubject == null
-        ? Center(child: Text('no subject selected'))
-        : ListView.builder(
-            itemCount: viewModel.currentSubject.dictionary.length,
-            itemBuilder: (context, int index) {
-              return DefinitionCardWidget(
-                definition: viewModel.currentSubject.dictionary[index],
-                onTap: () {},
-              );
-            });
-
-    Widget examCards = viewModel.currentSubject == null
-        ? Center(child: Text('no subject selected'))
-        : ListView.builder(
-            itemCount: viewModel.currentSubject.exams.length,
-            itemBuilder: (context, int index) {
-              return ExamCardWidget(
-                exam: viewModel.currentSubject.exams[index],
-                onTap: () {},
-              );
-            });
-
-    Widget _homePage = BasePageWidget(
-        pageName: 'Home',
-        content: Column(
-          children: <Widget>[
-            SizedBox(height: 20),
-            usersButton,
-            SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text(
-                'Current Questions',
-                style: theme.textTheme.headline3,
-              ),
-            ),
-            SizedBox(height: 20),
-            Expanded(child: currentQuestions),
-          ],
-        ));
-
-    Widget _examPage = BasePageWidget(
-      pageName: 'Exams',
-      content: Column(
-        children: <Widget>[SizedBox(height: 20), Expanded(child: examCards)],
-      ),
-    );
-
-    Widget _dictionaryPage = BasePageWidget(
-      pageName: 'Dictionary',
-      content: Column(
-        children: <Widget>[
-          SizedBox(height: 20),
-          searchBar,
-          SizedBox(height: 20),
-          Expanded(child: dictionaryDefs)
-        ],
-      ),
-    );
-
     Widget _usersPage = BasePageWidget(pageName: 'Users', content: Center());
-
-    Widget feedbackMessages = viewModel.currentSubject == null
-        ? Center(child: Text('no subject selected'))
-        : ListView.builder(
-            itemCount: viewModel.currentSubject.feedback.length,
-            itemBuilder: (context, int index) {
-              return FeedbackCardWidget(
-                  message: viewModel.currentSubject.feedback[index]);
-            });
-
-    Widget feedbackSendButton = RoundedButtonWidget(
-      text: 'Send',
-      primaryColor: Colors.blue,
-      secondaryColor: Colors.white,
-      boarder: false,
-      function: () {},
-    );
-
-    Widget feedbackTextBox = RoundedTextBoxWidget(
-      controller: feedbackText,
-      isPassword: false,
-      label: 'feedback',
-      primaryColor: Colors.white,
-      secondaryColor: Colors.blue,
-      boarder: true,
-    );
-
-    Widget _feedbackPage = BasePageWidget(
-        pageName: 'Feedback',
-        content: Column(
-          children: <Widget>[
-            SizedBox(height: 20),
-            Expanded(child: feedbackMessages),
-            Row(
-              children: <Widget>[
-                Expanded(child: feedbackTextBox),
-                SizedBox(width: 10),
-                feedbackSendButton,
-              ],
-            )
-          ],
-        ));
 
     Widget _initialBody = Padding(
       padding: EdgeInsets.all(20),
@@ -251,13 +118,12 @@ class __HomeMobileState extends State<_HomeMobile> {
         ],
       ),
     );
-
     List<Widget> _pages = [
-      _homePage,
-      _examPage,
+      HomePageWidget(viewModel: viewModel),
+      ExamPageWidget(viewModel: viewModel),
       _usersPage,
-      _dictionaryPage,
-      _feedbackPage
+      DictionaryPageWidget(viewModel: viewModel),
+      FeedbackPageWidget(viewModel: viewModel),
     ];
     return DefaultTabController(
       length: _pages.length,
