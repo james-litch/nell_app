@@ -18,25 +18,28 @@ class _ExamCardMobile extends StatelessWidget {
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
         onTap: onTap,
-        child: Column(
-          children: <Widget>[
-            Align(
-              alignment: Alignment.topLeft,
-              child: Text(
-                '${exam.name}',
-                style: theme.textTheme.bodyText1.copyWith(fontSize: 25),
-                textAlign: TextAlign.left,
+        child: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: Column(
+            children: <Widget>[
+              Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  '${exam.name}',
+                  style: theme.textTheme.headline3,
+                  textAlign: TextAlign.left,
+                ),
               ),
-            ),
-            Align(
-              alignment: Alignment.center,
-              child: Text(
-                '${exam.description}',
-                style: theme.textTheme.bodyText1.copyWith(fontSize: 15),
-                textAlign: TextAlign.center,
+              Align(
+                alignment: Alignment.center,
+                child: Text(
+                  '${exam.description}',
+                  style: theme.textTheme.bodyText1.copyWith(fontSize: 15),
+                  textAlign: TextAlign.center,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
