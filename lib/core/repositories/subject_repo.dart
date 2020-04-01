@@ -43,6 +43,11 @@ class SubjectRepo {
             name
             id
 
+            questions {
+              id
+              question
+            }
+
             currentQuestions {
               question
               id

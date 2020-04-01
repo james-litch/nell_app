@@ -2,6 +2,7 @@ import 'package:nell/core/base/base_model.dart';
 import 'package:nell/core/models/current_question_model.dart';
 import 'package:nell/core/models/definition_model.dart';
 import 'package:nell/core/models/exam_model.dart';
+import 'package:nell/core/models/question_model.dart';
 import 'package:nell/core/models/user_model.dart';
 
 class Subject extends BaseModel {
@@ -11,7 +12,7 @@ class Subject extends BaseModel {
   final List<CurrentQuestion> currentQuestions;
   final List<Definition> dictionary;
   final List<Exam> exams;
-  // final List<Question> questions;
+  final List<Question> questions;
   final List<String> feedback;
   final List<User> users;
   final List<User> admins;
@@ -22,6 +23,7 @@ class Subject extends BaseModel {
     this.name,
     this.isAdmin,
     this.currentQuestions,
+    this.questions,
     this.exams,
     this.feedback,
     this.admins,
@@ -42,6 +44,10 @@ class Subject extends BaseModel {
         (json['subject']['currentQuestions'] as List)
             .map((i) => CurrentQuestion.fromJson(i))
             .toList();
+
+    List<Question> questionList = (json['subject']['questions'] as List)
+        .map((i) => Question.fromJson(i))
+        .toList();
 
     List<Definition> defList = (json['subject']['dictionary'] as List)
         .map((i) => Definition.fromJson(i))
@@ -71,6 +77,7 @@ class Subject extends BaseModel {
       feedback: feedbackList,
       admins: adminList,
       users: userList,
+      questions: questionList,
     );
   }
 
