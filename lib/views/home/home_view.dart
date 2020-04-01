@@ -1,11 +1,11 @@
 library home_view;
 
 import 'package:nell/core/models/subject_model.dart';
-import 'package:nell/widgets/base_page/base_page_widget.dart';
 import 'package:nell/widgets/pages/dictionary_page/dictionary_page_widget.dart';
 import 'package:nell/widgets/pages/exam_page/exam_page_widget.dart';
 import 'package:nell/widgets/pages/feedback_page/feedback_page_widget.dart';
 import 'package:nell/widgets/pages/home_page/home_page_widget.dart';
+import 'package:nell/widgets/pages/users_page/users_page_widget.dart';
 import 'package:nell/widgets/shared/bottom_sheet/bottom_sheet_widget.dart';
 
 import 'package:nell/widgets/shared/spinner/spinner_widget.dart';

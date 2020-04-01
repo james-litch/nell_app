@@ -101,8 +101,6 @@ class __HomeMobileState extends State<_HomeMobile> {
           Tab(icon: Icon(Icons.forum, size: 27))
         ]);
 
-    Widget _usersPage = BasePageWidget(pageName: 'Users', content: Center());
-
     Widget _initialBody = Padding(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -121,7 +119,7 @@ class __HomeMobileState extends State<_HomeMobile> {
     List<Widget> _pages = [
       HomePageWidget(viewModel: viewModel),
       ExamPageWidget(viewModel: viewModel),
-      _usersPage,
+      UsersPageWidget(viewModel: viewModel),
       DictionaryPageWidget(viewModel: viewModel),
       FeedbackPageWidget(viewModel: viewModel),
     ];
