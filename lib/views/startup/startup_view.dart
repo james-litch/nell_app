@@ -1,6 +1,6 @@
 library startup_view;
 
-import 'package:nell/widgets/logo/logo_widget.dart';
+import 'package:nell/widgets/shared/logo/logo_widget.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';

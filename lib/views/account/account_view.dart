@@ -1,6 +1,6 @@
 library account_view;
 
-import 'package:nell/widgets/rounded_button/rounded_button_widget.dart';
+import 'package:nell/widgets/shared/rounded_button/rounded_button_widget.dart';
 import 'package:provider_architecture/provider_architecture.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';

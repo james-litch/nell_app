@@ -98,8 +98,9 @@ class __HomeMobileState extends State<_HomeMobile> {
         tabs: [
           Tab(icon: Icon(Icons.home, size: 30)),
           Tab(icon: Icon(Icons.import_contacts, size: 27)),
+          Tab(icon: Icon(Icons.group, size: 27)),
           Tab(icon: Icon(Icons.font_download, size: 27)),
-          Tab(icon: Icon(Icons.feedback, size: 27))
+          Tab(icon: Icon(Icons.forum, size: 27))
         ]);
 
     Widget usersButton = RoundedButtonWidget(
@@ -191,6 +192,8 @@ class __HomeMobileState extends State<_HomeMobile> {
       ),
     );
 
+    Widget _usersPage = BasePageWidget(pageName: 'Users', content: Center());
+
     Widget feedbackMessages = viewModel.currentSubject == null
         ? Center(child: Text('no subject selected'))
         : ListView.builder(
@@ -252,11 +255,12 @@ class __HomeMobileState extends State<_HomeMobile> {
     List<Widget> _pages = [
       _homePage,
       _examPage,
+      _usersPage,
       _dictionaryPage,
       _feedbackPage
     ];
     return DefaultTabController(
-      length: 4,
+      length: _pages.length,
       child: Scaffold(
         key: _scaffoldKey,
         backgroundColor: Colors.white,
