@@ -116,6 +116,7 @@ class __HomeMobileState extends State<_HomeMobile> {
         ],
       ),
     );
+
     List<Widget> _pages = [
       HomePageWidget(viewModel: viewModel),
       ExamPageWidget(viewModel: viewModel),
@@ -123,6 +124,7 @@ class __HomeMobileState extends State<_HomeMobile> {
       DictionaryPageWidget(viewModel: viewModel),
       FeedbackPageWidget(viewModel: viewModel),
     ];
+
     return DefaultTabController(
       length: _pages.length,
       child: Scaffold(
