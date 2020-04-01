@@ -1,6 +1,6 @@
 library exam_card_widget;
 
-import 'package:nell/core/models/subject_model.dart';
+import 'package:nell/core/models/exam_model.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';
 
