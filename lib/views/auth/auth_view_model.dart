@@ -77,6 +77,7 @@ class AuthViewModel extends BaseViewModel {
       accessToken
     }
     user {
+      id
       name
       email
       subjects{
