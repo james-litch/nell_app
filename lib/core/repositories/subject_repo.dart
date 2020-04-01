@@ -48,19 +48,31 @@ class SubjectRepo {
               id
             }
 
-            dictionary{
+            dictionary {
               id
               phrase
               definition
             }
 
-            exams{
+            exams {
               id
               name
               description
             }
 
             feedback
+
+            users {
+              email
+              name
+              id
+            }
+
+            admins {
+              name
+              email
+              id
+            }
           }
         }
       }
