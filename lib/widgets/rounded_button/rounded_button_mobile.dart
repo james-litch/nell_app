@@ -37,7 +37,7 @@ class __RoundedButtonMobileState extends State<_RoundedButtonMobile> {
         side: BorderSide(color: boarderColor, width: 2.0),
       ),
       child: Padding(
-        padding: EdgeInsets.all(10.0),
+        padding: EdgeInsets.all(12.0),
         child: !widget.busy? 
         Text(
           widget.text,
