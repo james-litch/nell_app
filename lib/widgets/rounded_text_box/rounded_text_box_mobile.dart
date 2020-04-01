@@ -32,7 +32,7 @@ class _RoundedTextBoxMobile extends StatelessWidget {
         style: TextStyle(color: secondaryColor, fontSize: 20),
         decoration: InputDecoration(
           border: InputBorder.none,
-          contentPadding: EdgeInsets.all(8.0),
+          contentPadding: EdgeInsets.all(6.0),
           hintText: label,
           hintStyle: TextStyle(
             color: secondaryColor,
@@ -40,8 +40,8 @@ class _RoundedTextBoxMobile extends StatelessWidget {
             fontSize: 20,
           ),
           icon: Padding(
-            padding: const EdgeInsets.all(15.0),
-            child: Icon(icon, color: secondaryColor),
+            padding: const EdgeInsets.all(10.0),
+            child: icon == null ? null : Icon(icon, color: secondaryColor),
           ),
         ),
       ),
