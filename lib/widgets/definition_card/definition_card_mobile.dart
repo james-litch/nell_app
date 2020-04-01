@@ -2,10 +2,11 @@ part of definition_card_widget;
 
 class _DefinitionCardMobile extends StatelessWidget {
   final Definition definition;
-  final onTap;
 
-  const _DefinitionCardMobile(
-      {@required this.definition, @required this.onTap});
+
+  const _DefinitionCardMobile({
+    @required this.definition,
+  });
   @override
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);

@@ -8,15 +8,13 @@ part 'definition_card_mobile.dart';
 
 class DefinitionCardWidget extends StatelessWidget {
   final Definition definition;
-  final onTap;
 
-  const DefinitionCardWidget({@required this.definition, @required this.onTap});
+  const DefinitionCardWidget({@required this.definition});
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
       mobile: _DefinitionCardMobile(
         definition: definition,
-        onTap: onTap,
       ),
     );
   }
