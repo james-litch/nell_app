@@ -1,4 +1,8 @@
 import 'package:nell/core/base/base_model.dart';
+import 'package:nell/core/models/current_question_model.dart';
+import 'package:nell/core/models/definition_model.dart';
+import 'package:nell/core/models/exam_model.dart';
+import 'package:nell/core/models/user_model.dart';
 
 class Subject extends BaseModel {
   final String id;
@@ -9,6 +13,8 @@ class Subject extends BaseModel {
   final List<Exam> exams;
   // final List<Question> questions;
   final List<String> feedback;
+  final List<User> users;
+  final List<User> admins;
 
   Subject({
     this.dictionary,
@@ -18,6 +24,8 @@ class Subject extends BaseModel {
     this.currentQuestions,
     this.exams,
     this.feedback,
+    this.admins,
+    this.users,
   });
 
   // Map<String, dynamic> toJson() {
@@ -43,6 +51,14 @@ class Subject extends BaseModel {
         .map((i) => Exam.fromJson(i))
         .toList();
 
+    List<User> userList = (json['subject']['users'] as List)
+        .map((i) => User.fromJson(i))
+        .toList();
+
+    List<User> adminList = (json['subject']['admins'] as List)
+        .map((i) => User.fromJson(i))
+        .toList();
+
     List<String> feedbackList = (json['subject']['feedback']).cast<String>();
 
     return Subject(
@@ -53,59 +69,24 @@ class Subject extends BaseModel {
       dictionary: defList,
       exams: examList,
       feedback: feedbackList,
+      admins: adminList,
+      users: userList,
     );
   }
 
   @override
-  List<Object> get props =>
-      [id, name, isAdmin, currentQuestions, dictionary, exams, feedback];
+  List<Object> get props => [
+        id,
+        name,
+        isAdmin,
+        currentQuestions,
+        dictionary,
+        exams,
+        feedback,
+        users,
+        admins
+      ];
 
   @override
   bool get stringify => true;
-}
-
-class Exam {
-  String id;
-  String name;
-  String description;
-
-  Exam({this.id, this.name, this.description});
-
-  factory Exam.fromJson(Map<String, dynamic> json) {
-    return Exam(
-      id: json['id'],
-      name: json['name'],
-      description: json['description'],
-    );
-  }
-}
-
-class CurrentQuestion {
-  final String id;
-  final String question;
-
-  CurrentQuestion({this.id, this.question});
-
-  factory CurrentQuestion.fromJson(Map<String, dynamic> json) {
-    return CurrentQuestion(
-      id: json['id'],
-      question: json['question'],
-    );
-  }
-}
-
-class Definition {
-  final String id;
-  final String phrase;
-  final String definition;
-
-  Definition({this.id, this.phrase, this.definition});
-
-  factory Definition.fromJson(Map<String, dynamic> json) {
-    return Definition(
-      id: json['id'],
-      phrase: json['phrase'],
-      definition: json['definition'],
-    );
-  }
 }
