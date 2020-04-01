@@ -1,5 +1,7 @@
 library users_page_widget;
 
+import 'package:nell/widgets/shared/base_page/base_page_widget.dart';
+import 'package:nell/widgets/user_card/user_card_widget.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:flutter/material.dart';
 
