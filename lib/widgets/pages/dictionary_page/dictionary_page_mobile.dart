@@ -25,7 +25,6 @@ class _DictionaryPageMobile extends StatelessWidget {
             itemBuilder: (context, int index) {
               return DefinitionCardWidget(
                 definition: viewModel.currentSubject.dictionary[index],
-                onTap: () {},
               );
             });
 
