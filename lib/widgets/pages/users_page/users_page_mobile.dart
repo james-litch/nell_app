@@ -10,7 +10,7 @@ class _UsersPageMobile extends StatelessWidget {
     ThemeData theme = Theme.of(context);
 
     Widget usersList = viewModel.currentSubject == null ||
-    viewModel.currentSubject.users.length == 0
+            viewModel.currentSubject.users.length == 0
         ? Center(child: Text('no users'))
         : ListView.builder(
             itemCount: viewModel.currentSubject.users.length,
