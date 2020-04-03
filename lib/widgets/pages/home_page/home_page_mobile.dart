@@ -22,36 +22,53 @@ class _HomePageMobile extends StatelessWidget {
           );
 
     Widget questionsList = viewModel.currentSubject == null ||
-            viewModel.currentSubject.currentQuestions.length == 0
+            viewModel.currentSubject.questions.length == 0
         ? Center(child: Text('no questions'))
         : ListView.builder(
-            itemCount: viewModel.currentSubject.currentQuestions.length,
+            itemCount: viewModel.currentSubject.questions.length,
             itemBuilder: (context, int index) {
               return QuestionCardWidget(
-                question: viewModel.currentSubject.currentQuestions[index],
+                question: viewModel.currentSubject.questions[index],
                 onTap: () {},
               );
             },
           );
 
-    return BasePageWidget(
-        pageName: 'Home',
-        content: Column(
-          children: <Widget>[
-            SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerLeft,
-              child:
-                  Text('Current Questions', style: theme.textTheme.headline3),
+    Widget content = viewModel.currentSubject.isAdmin
+        ? BasePageWidget(
+            pageName: 'Home',
+            content: Column(
+              children: <Widget>[
+                SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('Current Questions',
+                      style: theme.textTheme.headline3),
+                ),
+                Expanded(child: currentQuestions),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('Questions', style: theme.textTheme.headline3),
+                ),
+                Expanded(child: questionsList),
+                SizedBox(height: 20),
+                // deleteSubjectButton,
+              ],
+            ))
+        : BasePageWidget(
+            pageName: 'Home',
+            content: Column(
+              children: <Widget>[
+                SizedBox(height: 20),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text('Current Questions',
+                      style: theme.textTheme.headline3),
+                ),
+                Expanded(child: currentQuestions),
+              ],
             ),
-            Expanded(child: currentQuestions),
-            SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Text('Questions', style: theme.textTheme.headline3),
-            ),
-            Expanded(child: questionsList),
-          ],
-        ));
+          );
+    return content;
   }
 }
