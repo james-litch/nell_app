@@ -1,5 +1,4 @@
 import 'package:nell/core/base/base_model.dart';
-import 'package:nell/core/models/current_question_model.dart';
 import 'package:nell/core/models/definition_model.dart';
 import 'package:nell/core/models/exam_model.dart';
 import 'package:nell/core/models/question_model.dart';
@@ -9,7 +8,7 @@ class Subject extends BaseModel {
   final String id;
   final String name;
   final bool isAdmin;
-  final List<CurrentQuestion> currentQuestions;
+  final List<Question> currentQuestions;
   final List<Definition> dictionary;
   final List<Exam> exams;
   final List<Question> questions;
@@ -40,10 +39,9 @@ class Subject extends BaseModel {
   // }
 
   factory Subject.fromJson(Map<String, dynamic> json) {
-    List<CurrentQuestion> currentQList =
-        (json['subject']['currentQuestions'] as List)
-            .map((i) => CurrentQuestion.fromJson(i))
-            .toList();
+    List<Question> currentQList = (json['subject']['currentQuestions'] as List)
+        .map((i) => Question.fromJson(i))
+        .toList();
 
     List<Question> questionList = (json['subject']['questions'] as List)
         .map((i) => Question.fromJson(i))
