@@ -89,6 +89,7 @@ class __HomeMobileState extends State<_HomeMobile> {
         onTap: (index) {
           viewModel.currentTab = index;
         },
+
         labelColor: Colors.blue,
         labelPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
         indicatorPadding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 20.0),
