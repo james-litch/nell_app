@@ -9,8 +9,9 @@ class _BasePageMobile extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData theme = Theme.of(context);
     return Padding(
-      padding: EdgeInsets.all(20.0),
+      padding: EdgeInsets.fromLTRB(20.0, 20.0, 20.0, 5.0),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: <Widget>[
           Align(
             alignment: Alignment.topLeft,
