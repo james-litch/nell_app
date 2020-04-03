@@ -23,7 +23,7 @@ class _FeedbackPageMobile extends StatelessWidget {
       primaryColor: Colors.blue,
       secondaryColor: Colors.white,
       boarder: false,
-      function: () {},
+      function: () => viewModel.sendFeedback(feedbackText.text),
     );
 
     Widget feedbackTextBox = RoundedTextBoxWidget(

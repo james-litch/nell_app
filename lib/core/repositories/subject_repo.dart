@@ -27,29 +27,35 @@ class SubjectRepo {
           .map((subject) => Subject.fromJson(subject))
           .toList();
     } catch (e) {
-      _dialogService.showDialog(
-          title: 'Query Error', description: e.toString());
+      // _dialogService.showDialog(
+      //     title: 'Query Error', description: e.toString());
+      print(e.toString());
     }
     return subjects;
   }
 
-  Future<Question> getQuestion({
+  Future<List<Question>> getQuestion({
     @required String subjectId,
     @required String questionId,
   }) async {
     var body = {
       "query": questionQuery,
-      "input": {
-        "subjectId": subjectId,
-        "questionId": questionId,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "questionId": questionId,
+        }
       }
     };
-
     var res = await _apiService.query(json.encode(body));
+
+    List<Question> questions = List();
 
     var question = Question.fromJson(res['data']['findQuestion']);
 
-    return question;
+    questions.add(question);
+
+    return questions;
   }
 
   Future answerQuestion({
@@ -66,13 +72,51 @@ class SubjectRepo {
       }
     };
     var res = await _apiService.query(json.encode(body));
-
-    var question = Question.fromJson(res['data']['findQuestion']);
-
-    return question;
   }
 
-  String questionQuery = ''' ''';
+  Future sendFeedback(
+      {@required String subjectId, @required String feedback}) async {
+    var body = {
+      "query": feedbackQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "question": feedback,
+        }
+      }
+    };
+    var res = await _apiService.query(json.encode(body));
+
+    return res['data'] == null ? res['errors'][0]['message'] : true;
+  }
+
+  String questionQuery = ''' 
+    query getQuestion(\$input: FindQuestion) {
+      findQuestion(input: \$input) {
+        question
+        id
+        
+        answers {
+          answer
+          totalChosen
+        }
+        
+        answeredBy {
+          id
+        }
+        
+        correctAnswer
+      }
+    }
+  ''';
+
+  String feedbackQuery = ''' 
+  
+    mutation Feedback(\$input: SubjectFeedback) {
+      subjectFeedback(input: \$input)
+    }
+
+  ''';
 
   String subjectsQuery = '''
     query {
