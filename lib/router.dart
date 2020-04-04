@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:nell/views/account/account_view.dart';
+import 'package:nell/views/answer_questions/answer_questions_view.dart';
 import 'package:nell/views/auth/auth_view.dart';
 import 'package:nell/views/home/home_view.dart';
 
@@ -16,6 +17,12 @@ Route<dynamic> generateRoute(RouteSettings settings) {
 
     case AccountViewRoute:
       return _getPageRoute(routeName: settings.name, viewToShow: AccountView());
+
+    case AnswerQuestionsRoute:
+      var questions = settings.arguments;
+      return _getPageRoute(
+          routeName: settings.name,
+          viewToShow: AnswerQuestionsView(questions: questions));
 
     default:
       return MaterialPageRoute(
