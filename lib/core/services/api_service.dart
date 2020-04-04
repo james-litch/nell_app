@@ -18,6 +18,7 @@ class ApiService extends BaseService {
   }
 
   Future persistToken() async {
+    // TODO: persist token
     return true;
   }
 
