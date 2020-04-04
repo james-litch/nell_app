@@ -3,6 +3,7 @@
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
+import 'package:nell/core/constants/api_constants.dart';
 import 'package:nell/core/locator.dart';
 import 'package:nell/core/models/question_model.dart';
 import 'package:nell/core/models/subject_model.dart';
@@ -89,85 +90,4 @@ class SubjectRepo {
 
     return res['data'] == null ? res['errors'][0]['message'] : true;
   }
-
-  String questionQuery = ''' 
-    query getQuestion(\$input: FindQuestion) {
-      findQuestion(input: \$input) {
-        question
-        id
-        
-        answers {
-          answer
-          totalChosen
-        }
-        
-        answeredBy {
-          id
-        }
-        
-        correctAnswer
-      }
-    }
-  ''';
-
-  String feedbackQuery = ''' 
-  
-    mutation Feedback(\$input: SubjectFeedback) {
-      subjectFeedback(input: \$input)
-    }
-
-  ''';
-
-  String subjectsQuery = '''
-    query {
-
-      me {
-
-        subjects {
-          admin
-          
-          subject {
-            name
-            id
-
-            questions {
-              id
-              question
-            }
-
-            currentQuestions {
-              question
-              id
-            }
-
-            dictionary {
-              id
-              phrase
-              definition
-            }
-
-            exams {
-              id
-              name
-              description
-            }
-
-            feedback
-
-            users {
-              email
-              name
-              id
-            }
-
-            admins {
-              name
-              email
-              id
-            }
-          }
-        }
-      }
-    }
-  ''';
 }
