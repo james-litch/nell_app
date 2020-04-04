@@ -17,6 +17,17 @@ class _UsersPageMobile extends StatelessWidget {
             itemBuilder: (context, int index) {
               return UserCardWidget(
                 user: viewModel.currentSubject.users[index],
+                 hasMenu: viewModel.currentSubject.isAdmin,
+                onMenuTap: (value) => viewModel.userMenu(value, index),
+                menuItems: [
+                  PopupMenuItem<String>(
+                    value: 'MAKE_ADMIN',
+                    child: Text(
+                      'make admin',
+                      style: theme.textTheme.bodyText2,
+                    ),
+                  ),
+                ],
               );
             });
 
@@ -28,6 +39,7 @@ class _UsersPageMobile extends StatelessWidget {
             itemBuilder: (context, int index) {
               return UserCardWidget(
                 user: viewModel.currentSubject.admins[index],
+                hasMenu: false,
               );
             });
 

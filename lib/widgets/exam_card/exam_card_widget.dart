@@ -9,14 +9,27 @@ part 'exam_card_mobile.dart';
 class ExamCardWidget extends StatelessWidget {
   final Exam exam;
   final onTap;
+  final onMenuTap;
+  final  menuItems;
+  final bool hasMenu;
 
-  const ExamCardWidget({@required this.exam, this.onTap});
+  const ExamCardWidget({
+    @required this.exam,
+    this.onTap,
+    this.onMenuTap,
+    this.menuItems,
+    @required this.hasMenu,
+  });
+
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
       mobile: _ExamCardMobile(
         exam: exam,
         onTap: onTap,
+        onMenuTap: onMenuTap,
+        menuItems: menuItems,
+        hasMenu: hasMenu,
       ),
     );
   }

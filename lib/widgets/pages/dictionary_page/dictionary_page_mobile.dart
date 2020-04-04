@@ -7,6 +7,7 @@ class _DictionaryPageMobile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     TextEditingController dictionarySerch = TextEditingController();
     Widget searchBar = RoundedTextBoxWidget(
       controller: dictionarySerch,
@@ -25,6 +26,17 @@ class _DictionaryPageMobile extends StatelessWidget {
             itemBuilder: (context, int index) {
               return DefinitionCardWidget(
                 definition: viewModel.currentSubject.dictionary[index],
+                hasMenu: viewModel.currentSubject.isAdmin,
+                onMenuTap: (value) => viewModel.dictionaryMenu(value, index),
+                menuItems: [
+                  PopupMenuItem<String>(
+                    value: 'DELETE',
+                    child: Text(
+                      'delete',
+                      style: theme.textTheme.bodyText2,
+                    ),
+                  ),
+                ],
               );
             });
 

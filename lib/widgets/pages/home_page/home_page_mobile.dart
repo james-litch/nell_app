@@ -16,7 +16,19 @@ class _HomePageMobile extends StatelessWidget {
             itemBuilder: (context, int index) {
               return QuestionCardWidget(
                 question: viewModel.currentSubject.currentQuestions[index],
-                onTap: () {},
+                onTap: () => viewModel.onQuestionClick(
+                    viewModel.currentSubject.questions[index].id),
+                hasMenu: viewModel.currentSubject.isAdmin,
+                onMenuTap: (value) => viewModel.questionMenu(value, index),
+                menuItems: [
+                  PopupMenuItem<String>(
+                    value: 'REMOVE',
+                    child: Text(
+                      'remove',
+                      style: theme.textTheme.bodyText2,
+                    ),
+                  ),
+                ],
               );
             },
           );
@@ -29,7 +41,26 @@ class _HomePageMobile extends StatelessWidget {
             itemBuilder: (context, int index) {
               return QuestionCardWidget(
                 question: viewModel.currentSubject.questions[index],
-                onTap: () {},
+                onTap: () => viewModel.onQuestionClick(
+                    viewModel.currentSubject.questions[index].id),
+                hasMenu: viewModel.currentSubject.isAdmin,
+                onMenuTap: (value) => viewModel.questionMenu(value, index),
+                menuItems: [
+                  PopupMenuItem<String>(
+                    value: 'DELETE',
+                    child: Text(
+                      'delete',
+                      style: theme.textTheme.bodyText2,
+                    ),
+                  ),
+                  PopupMenuItem<String>(
+                    value: 'MAKE_CURRENT',
+                    child: Text(
+                      'make current',
+                      style: theme.textTheme.bodyText2,
+                    ),
+                  ),
+                ],
               );
             },
           );

@@ -6,6 +6,7 @@ class _ExamPageMobile extends StatelessWidget {
   const _ExamPageMobile({this.viewModel});
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
     Widget examCards = viewModel.currentSubject == null
         ? Center(child: Text('no subject selected'))
         : ListView.builder(
@@ -14,6 +15,17 @@ class _ExamPageMobile extends StatelessWidget {
               return ExamCardWidget(
                 exam: viewModel.currentSubject.exams[index],
                 onTap: () {},
+                hasMenu: viewModel.currentSubject.isAdmin,
+                onMenuTap: (value) => viewModel.examMenu(value, index),
+                menuItems: [
+                  PopupMenuItem<String>(
+                    value: 'DELETE',
+                    child: Text(
+                      'delete',
+                      style: theme.textTheme.bodyText2,
+                    ),
+                  ),
+                ],
               );
             });
 
