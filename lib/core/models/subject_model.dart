@@ -89,7 +89,8 @@ class Subject extends BaseModel {
         exams,
         feedback,
         users,
-        admins
+        admins,
+        questions,
       ];
 
   @override
