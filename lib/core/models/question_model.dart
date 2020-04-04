@@ -23,10 +23,12 @@ class Question {
         ? (json['answeredBy'] as List).map((i) => User.fromJson(i)).toList()
         : null;
 
+    int correctAnswer = json['correctAnswer'] !=null ? int.parse(json['correctAnswer']) : null;
+
     return Question(
       id: json['id'],
       question: json['question'],
-      correctAnswer: json['correctAnswer'],
+      correctAnswer: correctAnswer,
       answers: answerList,
       answeredBy: answeredByList,
     );
