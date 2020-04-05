@@ -41,6 +41,7 @@ class _FeedbackPageMobile extends StatelessWidget {
           children: <Widget>[
             SizedBox(height: 20),
             Expanded(child: feedbackMessages),
+            SizedBox(height: 20),
             Row(
               children: <Widget>[
                 Expanded(child: feedbackTextBox),
