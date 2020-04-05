@@ -8,11 +8,9 @@ import 'package:nell/core/locator.dart';
 import 'package:nell/core/models/question_model.dart';
 import 'package:nell/core/models/subject_model.dart';
 import 'package:nell/core/services/api_service.dart';
-import 'package:nell/core/services/dialog_service.dart';
 
 class SubjectRepo {
   ApiService _apiService = locator<ApiService>();
-  DialogService _dialogService = locator<DialogService>();
 
   Future<List> getSubjects() async {
     var body = {
@@ -119,14 +117,17 @@ class SubjectRepo {
     @required int answer,
   }) async {
     var body = {
-      "query": questionQuery,
+      "query": answerQuestionQuery,
       "input": {
         "subjectId": subjectId,
         "questionId": questionId,
         "answer": answer
       }
     };
+
     var res = await _apiService.query(json.encode(body));
+
+    return res is String ? res : true;
   }
 
   Future deleteExam({
@@ -165,7 +166,6 @@ class SubjectRepo {
     return res is String ? res : true;
   }
 
-
   Future deleteDefinition({
     @required subjectId,
     @required definitionId,
@@ -183,7 +183,6 @@ class SubjectRepo {
 
     return res is String ? res : true;
   }
-
 
   Future sendFeedback({
     @required String subjectId,
