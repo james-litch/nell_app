@@ -59,6 +59,60 @@ class SubjectRepo {
     return questions;
   }
 
+  Future makeQuestionCurrent({
+    @required String subjectId,
+    @required String questionId,
+  }) async {
+    var body = {
+      "query": makeQuestionCurrentQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "questionId": questionId,
+        }
+      }
+    };
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String ? res : true;
+  }
+
+  Future removeCurrentQuestion({
+    @required String subjectId,
+    @required String questionId,
+  }) async {
+    var body = {
+      "query": removeCurrentQuestionsQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "questionIds": [questionId],
+        }
+      }
+    };
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String ? res : true;
+  }
+
+  Future deleteQuestion({
+    @required String subjectId,
+    @required String questionId,
+  }) async {
+    var body = {
+      "query": deleteQuestionsQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "questionIds": [questionId],
+        }
+      }
+    };
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String ? res : true;
+  }
+
   Future answerQuestion({
     @required String subjectId,
     @required String questionId,
@@ -75,8 +129,66 @@ class SubjectRepo {
     var res = await _apiService.query(json.encode(body));
   }
 
-  Future sendFeedback(
-      {@required String subjectId, @required String feedback}) async {
+  Future deleteExam({
+    @required String subjectId,
+    @required String examId,
+  }) async {
+    var body = {
+      "query": deleteExamsQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "examIds": [examId],
+        }
+      }
+    };
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String ? res : true;
+  }
+
+  Future makeUserAdmin({
+    @required subjectId,
+    @required userId,
+  }) async {
+    var body = {
+      "query": addAdminQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "userId": userId,
+        }
+      }
+    };
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String ? res : true;
+  }
+
+
+  Future deleteDefinition({
+    @required subjectId,
+    @required definitionId,
+  }) async {
+    var body = {
+      "query": deleteDefinitionsQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "definitionIds": [definitionId],
+        }
+      }
+    };
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String ? res : true;
+  }
+
+
+  Future sendFeedback({
+    @required String subjectId,
+    @required String feedback,
+  }) async {
     var body = {
       "query": feedbackQuery,
       "variables": {
