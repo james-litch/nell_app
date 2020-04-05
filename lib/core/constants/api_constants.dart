@@ -74,7 +74,7 @@ const String createExamQuery = '''
 ''';
 
 const String deleteExamsQuery = ''' 
-    mutation DeleteExams(\$input: RemoveExams){
+    mutation DeleteExams(\$input: RemoveExams) {
       removeExams(input: \$input)
     }
 ''';
@@ -113,7 +113,7 @@ const String addDefinitionQuery = '''
     }
 ''';
 
-const String deleteDefinitionQuery = ''' 
+const String deleteDefinitionsQuery = ''' 
     mutation DeleteDefinitions(\$input: RemoveDefinitions){
       removeDefinitions(input: \$input)
     }
