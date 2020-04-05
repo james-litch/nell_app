@@ -84,58 +84,144 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  Future questionMenu(String value, int index) async {
+  Future editResources(String value, int index) async {
     switch (value) {
-      case 'REMOVE':
+      case 'REMOVE_CURRENT_QUESTION':
         {
-          print('remove $index');
+          log.i(
+            'HOME MODEL: REMOVE_CURRENT_QUESTION ${_currentSubject.currentQuestions[index].question}',
+          );
+
+          var res = await subjectRepo.removeCurrentQuestion(
+            subjectId: _currentSubject.id,
+            questionId: _currentSubject.currentQuestions[index].id,
+          );
+
+          if (res) {
+            _currentSubject.currentQuestions.removeAt(index);
+            notifyListeners();
+          } else {
+            _dialogService.showDialog(
+              title: 'Query Error',
+              description: res,
+              buttonTitle: 'ok',
+            );
+          }
         }
         break;
 
-      case 'DELETE':
+      case 'DELETE_QUESTION':
         {
-          print('delete $index');
+          log.i(
+            'HOME MODEL: DELETE_QUESTION ${_currentSubject.questions[index].question}',
+          );
+          var res = await subjectRepo.deleteQuestion(
+            subjectId: _currentSubject.id,
+            questionId: _currentSubject.questions[index].id,
+          );
+
+          if (res) {
+            _currentSubject.currentQuestions.removeWhere((question) =>
+                question.id == _currentSubject.questions[index].id);
+            _currentSubject.questions.removeAt(index);
+            notifyListeners();
+          } else {
+            _dialogService.showDialog(
+              title: 'Query Error',
+              description: res,
+              buttonTitle: 'ok',
+            );
+          }
         }
         break;
 
-      case 'MAKE_CURRENT':
+      case 'MAKE_QUESTION_CURRENT':
         {
-          print('make_current $index');
+          log.i(
+              'HOME MODEL: MAKE_QUESTION_CURRENT ${_currentSubject.questions[index].question}');
+          var res = await subjectRepo.makeQuestionCurrent(
+            subjectId: _currentSubject.id,
+            questionId: _currentSubject.questions[index].id,
+          );
+
+          if (res) {
+            _currentSubject.currentQuestions
+                .add(_currentSubject.questions[index]);
+            notifyListeners();
+          } else {
+            _dialogService.showDialog(
+              title: 'Query Error',
+              description: res,
+              buttonTitle: 'ok',
+            );
+          }
         }
         break;
-    }
-  }
 
-  Future examMenu(String value, index) async {
-    switch (value) {
-      case 'DELETE':
+      case 'DELETE_EXAM':
         {
-          print('delete exam $index');
+          log.i('HOME MODEL: DELETE_EXAM ${_currentSubject.exams[index].name}');
+
+          var res = await subjectRepo.deleteExam(
+            subjectId: _currentSubject.id,
+            examId: _currentSubject.exams[index].id,
+          );
+
+          if (res is String) {
+            _dialogService.showDialog(
+              title: 'Query Error',
+              description: res,
+              buttonTitle: 'ok',
+            );
+          }
+          _currentSubject.exams.removeAt(index);
+          notifyListeners();
         }
         break;
-    }
-  }
 
-   Future dictionaryMenu(String value, index) async {
-    switch (value) {
-      case 'DELETE':
-        {
-          print('delete definition $index');
-        }
-        break;
-    }
-  }
-
-   Future userMenu(String value, index) async {
-    switch (value) {
       case 'MAKE_ADMIN':
         {
-          print('make user admin $index');
+          log.i('HOME MODEL: MAKE_ADMIN ${_currentSubject.users[index].name}');
+          var res = await subjectRepo.makeUserAdmin(
+            subjectId: _currentSubject.id,
+            userId: _currentSubject.users[index].id,
+          );
+
+          if (res is String) {
+            _dialogService.showDialog(
+              title: 'Query Error',
+              description: res,
+              buttonTitle: 'ok',
+            );
+          }
+          _currentSubject.admins.add(_currentSubject.users[index]);
+          _currentSubject.users.removeAt(index);
+          notifyListeners();
+        }
+        break;
+
+      case 'DELETE_DEFINITION':
+        {
+          log.i(
+              'HOME MODEL: DELETE_DEFINITION ${_currentSubject.dictionary[index].phrase}');
+          var res = await subjectRepo.deleteDefinition(
+            subjectId: _currentSubject.id,
+            definitionId: _currentSubject.dictionary[index].id,
+          );
+
+          if (res is String) {
+            _dialogService.showDialog(
+              title: 'Query Error',
+              description: res,
+              buttonTitle: 'ok',
+            );
+          }
+          _currentSubject.dictionary.removeAt(index);
+          notifyListeners();
         }
         break;
     }
   }
-
 
   get showTabs => _showTabs;
 
