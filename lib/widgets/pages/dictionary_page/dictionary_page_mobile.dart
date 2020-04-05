@@ -19,8 +19,9 @@ class _DictionaryPageMobile extends StatelessWidget {
       icon: Icons.search,
     );
 
-    Widget dictionaryDefs = viewModel.currentSubject == null
-        ? Center(child: Text('no subject selected'))
+    Widget dictionaryDefs = viewModel.currentSubject == null ||
+    viewModel.currentSubject.dictionary.length == 0
+        ? Center(child: Text('no definitions available'))
         : ListView.builder(
             itemCount: viewModel.currentSubject.dictionary.length,
             itemBuilder: (context, int index) {
