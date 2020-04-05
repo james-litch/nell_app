@@ -27,10 +27,10 @@ class _DictionaryPageMobile extends StatelessWidget {
               return DefinitionCardWidget(
                 definition: viewModel.currentSubject.dictionary[index],
                 hasMenu: viewModel.currentSubject.isAdmin,
-                onMenuTap: (value) => viewModel.dictionaryMenu(value, index),
+                onMenuTap: (value) => viewModel.editResources(value, index),
                 menuItems: [
                   PopupMenuItem<String>(
-                    value: 'DELETE',
+                    value: 'DELETE_DEFINITION',
                     child: Text(
                       'delete',
                       style: theme.textTheme.bodyText2,

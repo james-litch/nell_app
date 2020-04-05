@@ -19,10 +19,10 @@ class _HomePageMobile extends StatelessWidget {
                 onTap: () => viewModel.onQuestionClick(
                     viewModel.currentSubject.questions[index].id),
                 hasMenu: viewModel.currentSubject.isAdmin,
-                onMenuTap: (value) => viewModel.questionMenu(value, index),
+                onMenuTap: (value) => viewModel.editResources(value, index),
                 menuItems: [
                   PopupMenuItem<String>(
-                    value: 'REMOVE',
+                    value: 'REMOVE_CURRENT_QUESTION',
                     child: Text(
                       'remove',
                       style: theme.textTheme.bodyText2,
@@ -44,17 +44,17 @@ class _HomePageMobile extends StatelessWidget {
                 onTap: () => viewModel.onQuestionClick(
                     viewModel.currentSubject.questions[index].id),
                 hasMenu: viewModel.currentSubject.isAdmin,
-                onMenuTap: (value) => viewModel.questionMenu(value, index),
+                onMenuTap: (value) => viewModel.editResources(value, index),
                 menuItems: [
                   PopupMenuItem<String>(
-                    value: 'DELETE',
+                    value: 'DELETE_QUESTION',
                     child: Text(
                       'delete',
                       style: theme.textTheme.bodyText2,
                     ),
                   ),
                   PopupMenuItem<String>(
-                    value: 'MAKE_CURRENT',
+                    value: 'MAKE_QUESTION_CURRENT',
                     child: Text(
                       'make current',
                       style: theme.textTheme.bodyText2,
