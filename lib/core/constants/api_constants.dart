@@ -270,7 +270,7 @@ const String leaveSubjectQuery = '''
 ''';
 
 const String deleteSubjectQuery = ''' 
-    mutation LeaveSubject(\$input: LeaveSubject) {
-      leaveSubject(input: \$input)
+    mutation DeleteSubject(\$input: DeleteSubject) {
+      deleteSubject(input: \$input)
     }
 ''';
