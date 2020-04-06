@@ -35,10 +35,20 @@ class _FeedbackPageMobile extends StatelessWidget {
       boarder: true,
     );
 
+    Widget clearFeedbackButton = viewModel.currentSubject.isAdmin ? RoundedButtonWidget(
+      text: 'Clear Feedback',
+      primaryColor: Colors.red,
+      secondaryColor: Colors.white,
+      boarder: false,
+      function: ()=> viewModel.editResources('CLEAR_FEEDBACK'),
+    ): Container();
+
     return BasePageWidget(
         pageName: 'Feedback',
         content: Column(
           children: <Widget>[
+            SizedBox(height: 20),
+            clearFeedbackButton,
             SizedBox(height: 20),
             Expanded(child: feedbackMessages),
             SizedBox(height: 20),
