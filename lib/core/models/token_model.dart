@@ -2,7 +2,9 @@ class Tokens {
   String access;
   String refresh;
 
-  Tokens();
+  Tokens(access, refresh)
+      : this.access = access,
+        this.refresh = refresh;
 
   Tokens.fromJson(Map<String, dynamic> json)
       : refresh = json['refresh-token'] != null
