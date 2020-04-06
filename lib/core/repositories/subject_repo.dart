@@ -5,6 +5,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:nell/core/constants/api_constants.dart';
 import 'package:nell/core/locator.dart';
+import 'package:nell/core/models/definition_model.dart';
 import 'package:nell/core/models/question_model.dart';
 import 'package:nell/core/models/subject_model.dart';
 import 'package:nell/core/services/api_service.dart';
@@ -166,6 +167,26 @@ class SubjectRepo {
     return res is String ? res : true;
   }
 
+  Future addDefinition({
+     @required subjectId,
+     @required phrase,
+     @required definition,
+  }) async {
+    var body = {
+      "query": addDefinitionQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "phrase": phrase,
+          "definition": definition,
+        }
+      }
+    };
+     var res = await _apiService.query(json.encode(body));
+
+     return res is String ? res : Definition.fromJson(res['data']['addDefinition']);
+  }
+
   Future deleteDefinition({
     @required subjectId,
     @required definitionId,
@@ -199,6 +220,98 @@ class SubjectRepo {
     };
     var res = await _apiService.query(json.encode(body));
 
-    return res['data'] == null ? res['errors'][0]['message'] : true;
+    return res is String ? res : true;
+  }
+
+  Future clearFeedback({
+    @required String subjectId,
+  }) async {
+    var body = {
+      "query": clearFeedbackQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+        }
+      }
+    };
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String ? res : true;
+  }
+
+  Future leaveSubject({
+    @required subjectId,
+  }) async {
+    var body = {
+      "query": leaveSubjectQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+        }
+      }
+    };
+
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String ? res : true;
+  }
+
+  Future deleteSubject({
+    @required subjectId,
+  }) async {
+    var body = {
+      "query": deleteSubjectQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+        }
+      }
+    };
+
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String ? res : true;
+  }
+
+  Future joinSubject({
+    @required subjectId,
+    @required password,
+  }) async {
+    var body = {
+      "query": joinSubjectQuery,
+      "variables": {
+        "input": {"subjectId": subjectId, "password": password}
+      }
+    };
+
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String
+        ? res
+        : Subject.fromJson(({
+            "admin": false,
+            "subject": res['data']['joinSubject'],
+          }));
+  }
+
+  Future createSubject({
+    @required subjectName,
+    @required password,
+  }) async {
+    var body = {
+      "query": createSubjectQuery,
+      "variables": {
+        "input": {"subjectName": subjectName, "password": password}
+      }
+    };
+
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String
+        ? res
+        : Subject.fromJson(({
+            "admin": true,
+            "subject": res['data']['createSubject'],
+          }));
   }
 }
