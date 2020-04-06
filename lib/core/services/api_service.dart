@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:dio/dio.dart';
 import 'package:nell/core/base/base_service.dart';
+import 'package:nell/core/models/token_model.dart';
 import 'package:nell/core/services/storage_service.dart';
 import 'package:http/http.dart' as http;
 import 'package:nell/core/constants/api_constants.dart';
@@ -21,8 +22,17 @@ class ApiService extends BaseService {
     };
   }
 
-  Future persistToken() async {
-    // TODO: persist token
+  Future persistToken(var headers) async {
+    if (headers['access-token'] != null && headers['refresh-token'] != null) {
+      
+      var tokens = Tokens(
+        headers['access-token'][0],
+        headers['refresh-token'][0],
+      );
+
+      _storageService.tokens = tokens;
+    }
+
     return true;
   }
 
@@ -58,12 +68,11 @@ class ApiService extends BaseService {
       log.e(e.toString());
       return e.toString();
     }
-
     if (response.data['errors'] != null)
       return (response.data['errors'][0]['message']);
 
     // persist token
-
+    persistToken(response.headers);
     return response.data;
   }
 }
