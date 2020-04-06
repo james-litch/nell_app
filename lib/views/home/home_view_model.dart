@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:nell/core/base/base_view_model.dart';
 import 'package:nell/core/constants/route_names.dart';
 import 'package:nell/core/locator.dart';
@@ -71,20 +72,98 @@ class HomeViewModel extends BaseViewModel {
     _navigatorService.navigateTo(AnswerQuestionsRoute, arguments: questions);
   }
 
+  Future joinSubject({
+    @required String subjectId,
+    @required String password,
+  }) async {
+    var res;
+
+    if (subjectId == "" && password == "") {
+      res = "Values must not be empty";
+    } else {
+      res = await subjectRepo.joinSubject(
+          subjectId: subjectId, password: password);
+    }
+
+    if (res is String) {
+      _dialogService.showDialog(
+          buttonTitle: 'ok', title: "Query error", description: res);
+    } else {
+      _subjects.add(res);
+      _currentSubject = _subjects.last;
+      _title = _currentSubject.name;
+      notifyListeners();
+    }
+  }
+
+  Future createSubject({
+    @required String subjectName,
+    @required String password,
+  }) async {
+    var res;
+
+    if (subjectName == "" && password == "") {
+      res = "Values must not be empty";
+    } else {
+      res = await subjectRepo.createSubject(
+        subjectName: subjectName,
+        password: password,
+      );
+    }
+
+    if (res is String) {
+      _dialogService.showDialog(
+          buttonTitle: 'ok', title: "Query error", description: res);
+    } else {
+      _subjects.add(res);
+      _currentSubject = _subjects.last;
+      _title = _currentSubject.name;
+      notifyListeners();
+    }
+  }
+
   Future sendFeedback(String feedback) async {
     var res = await subjectRepo.sendFeedback(
         subjectId: _currentSubject.id, feedback: feedback);
 
-    if (res)
-      _currentSubject.feedback.add(feedback);
-    else if (res is String)
+    if (res is String) {
       _dialogService.showDialog(
           buttonTitle: 'ok', title: "Feedback error", description: res);
-
-    notifyListeners();
+    } else {
+      _currentSubject.feedback.add(feedback);
+      notifyListeners();
+    }
   }
 
-  Future editResources(String value, int index) async {
+  Future addDefinition({
+    @required String phrase,
+    @required String definition,
+  }) async {
+   var res;
+
+    if (phrase == "" && definition == "") {
+      res = "Values must not be empty";
+    } 
+    else {
+      res = await subjectRepo.addDefinition(
+        phrase: phrase,
+        definition: definition,
+        subjectId: _currentSubject.id
+      );
+    }
+
+    if (res is String) {
+      _dialogService.showDialog(
+          buttonTitle: 'ok', title: "Query error", description: res);
+    } else {
+      _currentSubject.dictionary.add(res);
+      notifyListeners();
+    }
+
+
+  }
+
+  Future editResources(String value, [int index]) async {
     switch (value) {
       case 'REMOVE_CURRENT_QUESTION':
         {
@@ -97,15 +176,15 @@ class HomeViewModel extends BaseViewModel {
             questionId: _currentSubject.currentQuestions[index].id,
           );
 
-          if (res) {
-            _currentSubject.currentQuestions.removeAt(index);
-            notifyListeners();
-          } else {
+          if (res is String) {
             _dialogService.showDialog(
               title: 'Query Error',
               description: res,
               buttonTitle: 'ok',
             );
+          } else {
+            _currentSubject.currentQuestions.removeAt(index);
+            notifyListeners();
           }
         }
         break;
@@ -120,17 +199,17 @@ class HomeViewModel extends BaseViewModel {
             questionId: _currentSubject.questions[index].id,
           );
 
-          if (res) {
-            _currentSubject.currentQuestions.removeWhere((question) =>
-                question.id == _currentSubject.questions[index].id);
-            _currentSubject.questions.removeAt(index);
-            notifyListeners();
-          } else {
+          if (res is String) {
             _dialogService.showDialog(
               title: 'Query Error',
               description: res,
               buttonTitle: 'ok',
             );
+          } else {
+            _currentSubject.currentQuestions.removeWhere((question) =>
+                question.id == _currentSubject.questions[index].id);
+            _currentSubject.questions.removeAt(index);
+            notifyListeners();
           }
         }
         break;
@@ -144,16 +223,16 @@ class HomeViewModel extends BaseViewModel {
             questionId: _currentSubject.questions[index].id,
           );
 
-          if (res) {
-            _currentSubject.currentQuestions
-                .add(_currentSubject.questions[index]);
-            notifyListeners();
-          } else {
+          if (res is String) {
             _dialogService.showDialog(
               title: 'Query Error',
               description: res,
               buttonTitle: 'ok',
             );
+          } else {
+            _currentSubject.currentQuestions
+                .add(_currentSubject.questions[index]);
+            notifyListeners();
           }
         }
         break;
@@ -173,9 +252,10 @@ class HomeViewModel extends BaseViewModel {
               description: res,
               buttonTitle: 'ok',
             );
+          } else {
+            _currentSubject.exams.removeAt(index);
+            notifyListeners();
           }
-          _currentSubject.exams.removeAt(index);
-          notifyListeners();
         }
         break;
 
@@ -193,10 +273,11 @@ class HomeViewModel extends BaseViewModel {
               description: res,
               buttonTitle: 'ok',
             );
+          } else {
+            _currentSubject.admins.add(_currentSubject.users[index]);
+            _currentSubject.users.removeAt(index);
+            notifyListeners();
           }
-          _currentSubject.admins.add(_currentSubject.users[index]);
-          _currentSubject.users.removeAt(index);
-          notifyListeners();
         }
         break;
 
@@ -215,9 +296,74 @@ class HomeViewModel extends BaseViewModel {
               description: res,
               buttonTitle: 'ok',
             );
+          } else {
+            _currentSubject.dictionary.removeAt(index);
+            notifyListeners();
           }
-          _currentSubject.dictionary.removeAt(index);
-          notifyListeners();
+        }
+        break;
+
+      case 'DELETE_SUBJECT':
+        {
+          log.i('HOME MODEL: DELETE_SUBJECT ${_subjects[index].name}');
+
+          var res = subjectRepo.deleteSubject(
+            subjectId: _subjects[index].id,
+          );
+
+          if (res is String) {
+            _dialogService.showDialog(
+              title: 'Query Error',
+              description: 'CHANGE',
+              buttonTitle: 'ok',
+            );
+          } else {
+            _subjects.removeAt(index);
+
+            notifyListeners();
+          }
+        }
+        break;
+
+      case 'LEAVE_SUBJECT':
+        {
+          log.i('HOME MODEL: LEAVE_SUBJECT ${_subjects[index].name}');
+
+          var res = subjectRepo.leaveSubject(
+            subjectId: _subjects[index].id,
+          );
+
+          if (res is String) {
+            _dialogService.showDialog(
+              title: 'Query Error',
+              description: 'CHANGE',
+              buttonTitle: 'ok',
+            );
+          } else {
+            _subjects.removeAt(index);
+            notifyListeners();
+          }
+        }
+        break;
+
+      case 'CLEAR_FEEDBACK':
+        {
+          log.i('HOME MODEL: CLEAR_FEEDBACK ${_currentSubject.name}');
+
+          var res = await subjectRepo.clearFeedback(
+            subjectId: _currentSubject.id,
+          );
+
+          if (res is String) {
+            _dialogService.showDialog(
+              title: 'Query Error',
+              description: 'CHANGE',
+              buttonTitle: 'ok',
+            );
+          } else {
+            _currentSubject.feedback.clear();
+            notifyListeners();
+          }
         }
         break;
     }

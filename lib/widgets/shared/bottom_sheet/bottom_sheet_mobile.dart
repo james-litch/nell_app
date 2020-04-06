@@ -4,50 +4,17 @@ class _BottomSheetMobile extends StatelessWidget {
   final Widget body;
   final Color primaryColor;
   final Color secondaryColor;
-  final onClose;
-  final String title;
+  final Widget sheetTop;
 
   _BottomSheetMobile({
     @required this.body,
     this.primaryColor,
     this.secondaryColor,
-    this.onClose,
-    this.title = '',
+    this.sheetTop,
   });
 
   @override
   Widget build(BuildContext context) {
-    Widget closeButton = Align(
-      alignment: Alignment.topLeft,
-      child: IconButton(
-        icon: Icon(
-          Icons.close,
-          size: 30.0,
-          color: secondaryColor,
-        ),
-        onPressed: () => onClose(),
-      ),
-    );
-
-    Widget sheetTitle = Expanded(
-      child: Text(
-        title,
-        style: TextStyle(
-          fontSize: 20,
-          color: secondaryColor,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-    );
-
-    Widget sheetTop = Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        closeButton,
-        sheetTitle,
-      ],
-    );
-
     return BottomSheet(
       builder: (BuildContext context) {
         return ClipRRect(

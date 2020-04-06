@@ -12,6 +12,8 @@ class _HomeMobile extends StatefulWidget {
 class __HomeMobileState extends State<_HomeMobile> {
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   PersistentBottomSheetController menuController;
+  TextEditingController subjectNameController = TextEditingController();
+  TextEditingController subjectPasswordContrroller = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +24,8 @@ class __HomeMobileState extends State<_HomeMobile> {
     void closeMenu() {
       viewModel.menuOpen = false;
       viewModel.showTabs = viewModel.currentSubject != null ? true : false;
+      subjectPasswordContrroller.clear();
+      subjectNameController.clear();
       Navigator.of(context).pop();
     }
 
@@ -31,16 +35,191 @@ class __HomeMobileState extends State<_HomeMobile> {
       closeMenu();
     }
 
+    Widget createSubjectBody = Container(
+      height: 500,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          RoundedTextBoxWidget(
+            controller: subjectNameController,
+            isPassword: false,
+            icon: Icons.text_fields,
+            label: 'Subject name',
+            primaryColor: Colors.white,
+            secondaryColor: Colors.blue,
+            boarder: false,
+          ),
+          SizedBox(height: 20),
+          RoundedTextBoxWidget(
+            controller: subjectPasswordContrroller,
+            icon: Icons.lock,
+            isPassword: true,
+            label: 'Password',
+            primaryColor: Colors.white,
+            secondaryColor: Colors.blue,
+            boarder: false,
+          ),
+          SizedBox(height: 100),
+          RoundedButtonWidget(
+              text: 'Create',
+              primaryColor: Colors.blue,
+              secondaryColor: Colors.white,
+              boarder: true,
+              function: () {
+                viewModel.createSubject(
+                  password: subjectPasswordContrroller.text,
+                  subjectName: subjectNameController.text,
+                );
+                closeMenu();
+              }),
+        ],
+      ),
+    );
+
+    Widget joinSubjectBody = Container(
+      height: 500,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          RoundedTextBoxWidget(
+            controller: subjectNameController,
+            isPassword: false,
+            icon: Icons.text_fields,
+            label: 'Subject id',
+            primaryColor: Colors.white,
+            secondaryColor: Colors.blue,
+            boarder: true,
+          ),
+          SizedBox(height: 20),
+          RoundedTextBoxWidget(
+            controller: subjectPasswordContrroller,
+            icon: Icons.lock,
+            isPassword: true,
+            label: 'Password',
+            primaryColor: Colors.white,
+            secondaryColor: Colors.blue,
+            boarder: false,
+          ),
+          SizedBox(height: 100),
+          RoundedButtonWidget(
+              text: 'Join',
+              primaryColor: Colors.blue,
+              secondaryColor: Colors.white,
+              boarder: true,
+              function: () {
+                viewModel.joinSubject(
+                  password: subjectPasswordContrroller.text,
+                  subjectId: subjectNameController.text,
+                );
+                closeMenu();
+              }),
+        ],
+      ),
+    );
+
+    void addSubjectPanel(bool create) {
+      viewModel.menuOpen = true;
+      viewModel.showTabs = false;
+
+      _scaffoldKey.currentState.showBottomSheet(
+        (context) => BottomSheetWidget(
+          primaryColor: Colors.blue,
+          secondaryColor: Colors.white,
+          sheetTop: Row(
+            children: <Widget>[
+              IconButton(
+                icon: Icon(Icons.close, color: Colors.white, size: 30),
+                onPressed: () => closeMenu(),
+              ),
+              Text(
+                'Add Subject',
+                style: theme.textTheme.headline2,
+              ),
+            ],
+          ),
+          body: Container(child: create ? createSubjectBody : joinSubjectBody),
+        ),
+      );
+    }
+
+    Widget addSubjectButton = PopupMenuButton(
+      onSelected: (value) => addSubjectPanel(value),
+      icon: Icon(Icons.add, color: Colors.white, size: 35),
+      itemBuilder: (BuildContext context) => [
+        PopupMenuItem<bool>(
+          value: true,
+          child: Text(
+            'Create Subject',
+            style: theme.textTheme.bodyText2,
+          ),
+        ),
+        PopupMenuItem<bool>(
+          value: false,
+          child: Text(
+            'Join Subject',
+            style: theme.textTheme.bodyText2,
+          ),
+        ),
+      ],
+    );
+
+    Widget menuHeader = Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.close, color: Colors.white, size: 30),
+          onPressed: () => closeMenu(),
+        ),
+        Text('Choose a subject', style: theme.textTheme.headline2),
+        addSubjectButton
+      ],
+    );
+
     Widget menuBody = Container(
       height: 500,
-      child: viewModel.busy
-          ? SpinnerWidget()
+      child: viewModel.subjects == null || viewModel.subjects == 0
+          ? Center(
+              child: Text(
+                'no subjects available',
+                style: theme.textTheme.bodyText2.copyWith(color: Colors.white),
+              ),
+            )
           : ListView.builder(
               itemCount: viewModel.subjects.length,
               itemBuilder: (context, int index) {
                 return SubjectMenuItemWidget(
                   subject: subjects[index],
                   onTap: () => menuOnTap(index),
+                  onMenuTap: (value) {
+                    closeMenu();
+                    viewModel.editResources(value, index);
+                  },
+                  menuItems: viewModel.subjects[index].isAdmin
+                      ? [
+                          PopupMenuItem<String>(
+                            value: 'LEAVE_SUBJECT',
+                            child: Text(
+                              'leave',
+                              style: theme.textTheme.bodyText2,
+                            ),
+                          ),
+                          PopupMenuItem<String>(
+                            value: 'DELETE_SUBJECT',
+                            child: Text(
+                              'delete',
+                              style: theme.textTheme.bodyText2,
+                            ),
+                          ),
+                        ]
+                      : [
+                          PopupMenuItem<String>(
+                            value: 'LEAVE_SUBJECT',
+                            child: Text(
+                              'leave',
+                              style: theme.textTheme.bodyText2,
+                            ),
+                          )
+                        ],
                 );
               },
             ),
@@ -51,10 +230,9 @@ class __HomeMobileState extends State<_HomeMobile> {
       viewModel.showTabs = false;
       _scaffoldKey.currentState.showBottomSheet(
         (context) => BottomSheetWidget(
-          onClose: () => closeMenu(),
           primaryColor: Colors.blue,
           secondaryColor: Colors.white,
-          title: 'Choose a subject',
+          sheetTop: menuHeader,
           body: Container(child: menuBody),
         ),
       );
@@ -89,7 +267,6 @@ class __HomeMobileState extends State<_HomeMobile> {
         onTap: (index) {
           viewModel.currentTab = index;
         },
-
         labelColor: Colors.blue,
         labelPadding: EdgeInsets.fromLTRB(10.0, 10.0, 10.0, 20.0),
         indicatorPadding: EdgeInsets.fromLTRB(20.0, 5.0, 20.0, 20.0),
@@ -122,7 +299,7 @@ class __HomeMobileState extends State<_HomeMobile> {
       HomePageWidget(viewModel: viewModel),
       ExamPageWidget(viewModel: viewModel),
       UsersPageWidget(viewModel: viewModel),
-      DictionaryPageWidget(viewModel: viewModel),
+      DictionaryPageWidget(viewModel: viewModel, scaffoldKey: _scaffoldKey,),
       FeedbackPageWidget(viewModel: viewModel),
     ];
 
