@@ -18,6 +18,8 @@ class __AuthMobileState extends State<_AuthMobile> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData theme = Theme.of(context);
+
     Widget emailInput = RoundedTextBoxWidget(
       primaryColor: Colors.white,
       secondaryColor: Colors.blue,
@@ -74,11 +76,21 @@ class __AuthMobileState extends State<_AuthMobile> {
       _passwordController.clear();
     }
 
+     Widget loginSheetHeader = Row(
+      children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.close, color: theme.primaryColor),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        Text('Login', style: theme.textTheme.headline3),
+      ],
+    );
+
     void loginSheet() {
       clearControllers();
       _scaffoldKey.currentState.showBottomSheet(
         (context) => BottomSheetWidget(
-          onClose: () => Navigator.of(context).pop(),
+          sheetTop: loginSheetHeader,
           body: Column(
             children: <Widget>[
               SizedBox(height: 60),
@@ -94,11 +106,21 @@ class __AuthMobileState extends State<_AuthMobile> {
       );
     }
 
+    Widget registerSheetHeader = Row(
+      children: <Widget>[
+        IconButton(
+          icon: Icon(Icons.close, color: theme.primaryColor),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+        Text('Register', style: theme.textTheme.headline3),
+      ],
+    );
+
     void registerSheet() {
       clearControllers();
       _scaffoldKey.currentState.showBottomSheet(
         (context) => BottomSheetWidget(
-          onClose: () => Navigator.of(context).pop(),
+          sheetTop: registerSheetHeader,
           body: Column(
             children: <Widget>[
               SizedBox(height: 40),
