@@ -40,7 +40,7 @@ class SubjectRepo {
     @required String questionId,
   }) async {
     var body = {
-      "query": questionQuery,
+      "query": findQuestionQuery,
       "variables": {
         "input": {
           "subjectId": subjectId,
@@ -120,16 +120,24 @@ class SubjectRepo {
   }) async {
     var body = {
       "query": answerQuestionQuery,
-      "input": {
-        "subjectId": subjectId,
-        "questionId": questionId,
-        "answer": answer
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "questionId": questionId,
+          "answer": answer
+        }
       }
     };
 
     var res = await _apiService.query(json.encode(body));
 
-    return res is String ? res : true;
+    List<Question> questions = List();
+
+    var question = Question.fromJson(res['data']['answerQuestion']);
+
+    questions.add(question);
+
+    return res is String ? res : questions;
   }
 
   Future deleteExam({
@@ -361,9 +369,27 @@ class SubjectRepo {
       }
     };
 
-
     var res = await _apiService.query(json.encode(body));
 
     return res is String ? res : Exam.fromJson((res['data']['createExam']));
+  }
+
+  Future getExam({@required String subjectId, @required String examId}) async {
+    var body = {
+      "query": findExamQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "examId": examId,
+        }
+      }
+    };
+    var res = await _apiService.query(json.encode(body));
+
+    List<Question> questions = (res['data']['findExam']['questions'] as List)
+        .map((i) => Question.fromJson(i))
+        .toList();
+
+    return questions;
   }
 }
