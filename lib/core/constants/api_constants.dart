@@ -1,24 +1,26 @@
 const String apiEndpoint = 'https://nell-assistant.herokuapp.com/graphql';
 
 // question queries
-const String questionQuery = ''' 
-    query getQuestion(\$input: FindQuestion) {
+const String findQuestionQuery = ''' 
+    query findQuestion(\$input: FindQuestion) {
       findQuestion(input: \$input) {
-        question
         id
-        
+
+        question
+
+        correctAnswer
+
         answers {
           answer
           totalChosen
         }
-        
+
         answeredBy {
           id
+          name
         }
-        
-        correctAnswer
-      }
-    }
+     }
+   }
 ''';
 
 const String addQuestionQuery = ''' 
@@ -48,6 +50,7 @@ const String answerQuestionQuery = '''
         }
         answeredBy {
           id
+          name
         }
       }
     }
@@ -66,6 +69,24 @@ const String removeCurrentQuestionsQuery = '''
 ''';
 
 // exam queries
+
+const String findExamQuery = '''
+query FindExams(\$input: FindExam) {
+    findExam(input: \$input) {
+        id
+        name
+        description
+        questions {
+          id
+          question
+          answers {
+            answer
+          }
+          correctAnswer
+        }
+      }
+    }
+''';
 
 const String createExamQuery = ''' 
     mutation CreateExam(\$input: CreateExam) {
