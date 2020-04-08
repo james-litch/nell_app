@@ -19,10 +19,14 @@ Route<dynamic> generateRoute(RouteSettings settings) {
       return _getPageRoute(routeName: settings.name, viewToShow: AccountView());
 
     case AnswerQuestionsRoute:
-      var questions = settings.arguments;
+      Map<String, dynamic> data = settings.arguments;
       return _getPageRoute(
-          routeName: settings.name,
-          viewToShow: AnswerQuestionsView(questions: questions));
+        routeName: settings.name,
+        viewToShow: AnswerQuestionsView(
+          questions: data['questions'],
+          subjectId: data['subjectId'],
+        ),
+      );
 
     default:
       return MaterialPageRoute(
