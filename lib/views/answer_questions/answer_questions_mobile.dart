@@ -56,6 +56,14 @@ class _AnswerQuestionsMobile extends StatelessWidget {
       function: () => viewModel.answerQuestion(),
     );
 
+    var doneButton = RoundedButtonWidget(
+      text: 'Done',
+      primaryColor: Colors.blue,
+      secondaryColor: Colors.white,
+      boarder: false,
+      function: () => Navigator.of(context).pop(),
+    );
+
     Widget questionPage = Stack(
       children: <Widget>[
         Container(
@@ -96,6 +104,7 @@ class _AnswerQuestionsMobile extends StatelessWidget {
       pageName: 'Check Answers',
       content: Column(
         children: <Widget>[
+          SizedBox(height: 20),
           ListView.builder(
             shrinkWrap: true,
             itemCount: viewModel.questions.length,
@@ -134,6 +143,8 @@ class _AnswerQuestionsMobile extends StatelessWidget {
               );
             },
           ),
+          SizedBox(height: 20),
+          doneButton,
         ],
       ),
     );
@@ -187,13 +198,7 @@ class _AnswerQuestionsMobile extends StatelessWidget {
               );
             },
           ),
-          RoundedButtonWidget(
-            text: 'Done',
-            primaryColor: Colors.blue,
-            secondaryColor: Colors.white,
-            boarder: false,
-            function: () => Navigator.of(context).pop(),
-          ),
+          doneButton,
         ],
       ),
     );
