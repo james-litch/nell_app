@@ -139,17 +139,15 @@ class HomeViewModel extends BaseViewModel {
     @required String phrase,
     @required String definition,
   }) async {
-   var res;
+    var res;
 
     if (phrase == "" && definition == "") {
       res = "Values must not be empty";
-    } 
-    else {
+    } else {
       res = await subjectRepo.addDefinition(
-        phrase: phrase,
-        definition: definition,
-        subjectId: _currentSubject.id
-      );
+          phrase: phrase,
+          definition: definition,
+          subjectId: _currentSubject.id);
     }
 
     if (res is String) {
@@ -159,8 +157,66 @@ class HomeViewModel extends BaseViewModel {
       _currentSubject.dictionary.add(res);
       notifyListeners();
     }
+  }
 
+  Future addExam({
+    @required String name,
+    @required String description,
+    @required List questions,
+  }) async {
+    var res;
 
+    if (questions.length == 0 || name == '') {
+      res = "Inputs can't be empty";
+    } else {
+      res = await subjectRepo.addExam(
+        subjectId: _currentSubject.id,
+        name: name,
+        description: description,
+        questions: questions,
+      );
+    }
+
+    if (res is String) {
+      _dialogService.showDialog(
+          buttonTitle: 'ok', title: "Query error", description: res);
+    } else {
+      _currentSubject.exams.add(res);
+      notifyListeners();
+    }
+  }
+
+  Future addQuestion(List inputs) async {
+    var res;
+    if (inputs.contains("")) {
+      res = 'Input fields must not be empty';
+    } else {
+      try {
+        inputs.last = int.parse(inputs.last);
+        if (inputs.last < 0 || inputs.last > inputs.length - 2) {
+          res =
+              'Correct Option must be an integer between 1 and ${inputs.length - 2}';
+        }
+      } catch (e) {
+        res =
+            'Correct Option must be an integer between 1 and ${inputs.length - 2}';
+      }
+
+      res = await subjectRepo.addQuestion(
+        subjectId: _currentSubject.id,
+        question: inputs[0],
+        answers: inputs.sublist(1, inputs.length - 1),
+        correctAnswer: inputs.last,
+      );
+    }
+
+    if (res is String) {
+      _dialogService.showDialog(
+          buttonTitle: 'ok', title: "Query error", description: res);
+    } else {
+      _currentSubject.questions.add(res);
+      notifyListeners();
+    }
   }
 
   Future editResources(String value, [int index]) async {
