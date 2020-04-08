@@ -69,7 +69,11 @@ const String removeCurrentQuestionsQuery = '''
 
 const String createExamQuery = ''' 
     mutation CreateExam(\$input: CreateExam) {
-      createExam(input: \$input)
+      createExam(input: \$input){
+        id
+        name
+        description
+      }
     }
 ''';
 
