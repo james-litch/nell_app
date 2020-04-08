@@ -15,21 +15,13 @@ class HomeViewModel extends BaseViewModel {
   final DialogService _dialogService = locator<DialogService>();
   final StorageService _storageService = locator<StorageService>();
   final SubjectRepo subjectRepo = SubjectRepo();
-
   String _title;
-
   bool _menuOpen;
-
   bool _showTabs;
-
   int _currentTab;
-
   User _user;
-
   Subject _currentSubject;
-
   List<Subject> _subjects;
-
   String _dictionaryFilter;
 
   HomeViewModel({
@@ -69,7 +61,25 @@ class HomeViewModel extends BaseViewModel {
       questionId: questionId,
     );
 
-    _navigatorService.navigateTo(AnswerQuestionsRoute, arguments: questions);
+    Map<String, dynamic> data = {
+      'questions': questions,
+      'subjectId': _currentSubject.id
+    };
+    _navigatorService.navigateTo(AnswerQuestionsRoute, arguments: data);
+  }
+
+  Future onExamClick(String examId) async {
+    List<Question> questions = await subjectRepo.getExam(
+      subjectId: _currentSubject.id,
+      examId: examId,
+    );
+
+    Map<String, dynamic> data = {
+      'questions': questions,
+      'subjectId': _currentSubject.id
+    };
+
+    _navigatorService.navigateTo(AnswerQuestionsRoute, arguments: data);
   }
 
   Future joinSubject({
@@ -192,7 +202,7 @@ class HomeViewModel extends BaseViewModel {
       res = 'Input fields must not be empty';
     } else {
       try {
-        inputs.last = int.parse(inputs.last);
+        inputs.last = int.parse(inputs.last) - 1;
         if (inputs.last < 0 || inputs.last > inputs.length - 2) {
           res =
               'Correct Option must be an integer between 1 and ${inputs.length - 2}';

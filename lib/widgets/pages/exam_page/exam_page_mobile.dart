@@ -42,7 +42,6 @@ class _ExamPageMobile extends StatelessWidget {
           body: Container(
             height: 670,
             child: Column(
-              // mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 RoundedTextBoxWidget(
                   controller: editors[0],
@@ -117,7 +116,9 @@ class _ExamPageMobile extends StatelessWidget {
             itemBuilder: (context, int index) {
               return ExamCardWidget(
                 exam: viewModel.currentSubject.exams[index],
-                onTap: () {},
+                onTap: () => viewModel.onExamClick(
+                  viewModel.currentSubject.exams[index].id,
+                ),
                 hasMenu: viewModel.currentSubject.isAdmin,
                 onMenuTap: (value) => viewModel.editResources(value, index),
                 menuItems: [
