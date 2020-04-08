@@ -6,6 +6,7 @@ import 'package:flutter/foundation.dart';
 import 'package:nell/core/constants/api_constants.dart';
 import 'package:nell/core/locator.dart';
 import 'package:nell/core/models/definition_model.dart';
+import 'package:nell/core/models/exam_model.dart';
 import 'package:nell/core/models/question_model.dart';
 import 'package:nell/core/models/subject_model.dart';
 import 'package:nell/core/services/api_service.dart';
@@ -168,9 +169,9 @@ class SubjectRepo {
   }
 
   Future addDefinition({
-     @required subjectId,
-     @required phrase,
-     @required definition,
+    @required subjectId,
+    @required phrase,
+    @required definition,
   }) async {
     var body = {
       "query": addDefinitionQuery,
@@ -182,9 +183,11 @@ class SubjectRepo {
         }
       }
     };
-     var res = await _apiService.query(json.encode(body));
+    var res = await _apiService.query(json.encode(body));
 
-     return res is String ? res : Definition.fromJson(res['data']['addDefinition']);
+    return res is String
+        ? res
+        : Definition.fromJson(res['data']['addDefinition']);
   }
 
   Future deleteDefinition({
@@ -313,5 +316,54 @@ class SubjectRepo {
             "admin": true,
             "subject": res['data']['createSubject'],
           }));
+  }
+
+  Future addQuestion({
+    @required subjectId,
+    @required String question,
+    @required List answers,
+    @required int correctAnswer,
+  }) async {
+    var body = {
+      "query": addQuestionQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "question": question,
+          "answers": answers,
+          "correctAnswer": correctAnswer,
+        }
+      }
+    };
+
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String
+        ? res
+        : Question.fromJson((res['data']['addQuestion']));
+  }
+
+  Future addExam({
+    @required String subjectId,
+    @required String name,
+    @required String description,
+    @required List questions,
+  }) async {
+    var body = {
+      "query": createExamQuery,
+      "variables": {
+        "input": {
+          "subjectId": subjectId,
+          "name": name,
+          "description": description,
+          "questions": questions,
+        }
+      }
+    };
+
+
+    var res = await _apiService.query(json.encode(body));
+
+    return res is String ? res : Exam.fromJson((res['data']['createExam']));
   }
 }
