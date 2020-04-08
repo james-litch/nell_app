@@ -156,6 +156,7 @@ class __AuthMobileState extends State<_AuthMobile> {
 
     return Scaffold(
       key: _scaffoldKey,
+      resizeToAvoidBottomInset : false,
       backgroundColor: Theme.of(context).primaryColor,
       body: Padding(
         padding: EdgeInsets.only(left: 30, right: 30),
