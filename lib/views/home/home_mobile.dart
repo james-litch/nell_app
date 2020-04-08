@@ -296,10 +296,12 @@ class __HomeMobileState extends State<_HomeMobile> {
     );
 
     List<Widget> _pages = [
-      HomePageWidget(viewModel: viewModel),
+      HomePageWidget(
+        viewModel: viewModel,
+      ),
       ExamPageWidget(viewModel: viewModel),
       UsersPageWidget(viewModel: viewModel),
-      DictionaryPageWidget(viewModel: viewModel, scaffoldKey: _scaffoldKey,),
+      DictionaryPageWidget(viewModel: viewModel),
       FeedbackPageWidget(viewModel: viewModel),
     ];
 
@@ -307,6 +309,7 @@ class __HomeMobileState extends State<_HomeMobile> {
       length: _pages.length,
       child: Scaffold(
         key: _scaffoldKey,
+        resizeToAvoidBottomInset : false,
         backgroundColor: Colors.white,
         bottomNavigationBar: widget.viewModel.showTabs ? bottomTabs : Wrap(),
         appBar: AppBar(
