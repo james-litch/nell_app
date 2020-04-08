@@ -12,17 +12,13 @@ part 'dictionary_page_mobile.dart';
 
 class DictionaryPageWidget extends StatelessWidget {
   final viewModel;
-  final scaffoldKey;
 
-  const DictionaryPageWidget({this.viewModel, @required this.scaffoldKey});
+  const DictionaryPageWidget({this.viewModel});
 
   @override
   Widget build(BuildContext context) {
     return ScreenTypeLayout(
-      mobile: _DictionaryPageMobile(
-        viewModel: viewModel,
-        scaffoldKey: scaffoldKey,
-      ),
+      mobile: _DictionaryPageMobile(viewModel: viewModel),
     );
   }
 }

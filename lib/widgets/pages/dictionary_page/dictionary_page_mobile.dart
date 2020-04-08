@@ -2,9 +2,9 @@ part of dictionary_page_widget;
 
 class _DictionaryPageMobile extends StatelessWidget {
   final viewModel;
-  final scaffoldKey;
 
-  const _DictionaryPageMobile({this.viewModel, @required this.scaffoldKey});
+
+  const _DictionaryPageMobile({this.viewModel});
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +73,7 @@ class _DictionaryPageMobile extends StatelessWidget {
       viewModel.menuOpen = true;
       viewModel.showTabs = false;
 
-      scaffoldKey.currentState.showBottomSheet(
+      Scaffold.of(context).showBottomSheet(
         (context) => BottomSheetWidget(
           primaryColor: Colors.blue,
           secondaryColor: Colors.white,
@@ -131,15 +131,15 @@ class _DictionaryPageMobile extends StatelessWidget {
           SizedBox(height: 20),
           Row(
             crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.start,
             children: <Widget>[
-              Align(
-                alignment: Alignment.topLeft,
-                child: Text('Definitions', style: theme.textTheme.headline3),
-              ),
-              IconButton(
-                icon: Icon(Icons.add, color: Colors.blue),
-                onPressed: () => addDefinitionPanel(),
-              )
+              Text('Definitions', style: theme.textTheme.headline3),
+              viewModel.currentSubject.isAdmin
+                  ? IconButton(
+                      icon: Icon(Icons.add, color: Colors.blue),
+                      onPressed: () => addDefinitionPanel(),
+                    )
+                  : Container(),
             ],
           ),
           Expanded(child: dictionaryDefs)
