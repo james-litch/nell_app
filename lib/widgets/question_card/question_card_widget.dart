@@ -9,8 +9,9 @@ class QuestionCardWidget extends StatelessWidget {
   final question;
   final onTap;
   final onMenuTap;
-  final  menuItems;
+  final menuItems;
   final bool hasMenu;
+  final Color onTapColor;
 
   const QuestionCardWidget({
     @required this.question,
@@ -18,6 +19,7 @@ class QuestionCardWidget extends StatelessWidget {
     this.onMenuTap,
     this.menuItems,
     this.hasMenu,
+    @required this.onTapColor,
   });
   @override
   Widget build(BuildContext context) {
@@ -28,6 +30,7 @@ class QuestionCardWidget extends StatelessWidget {
         onMenuTap: onMenuTap,
         menuItems: menuItems,
         hasMenu: hasMenu,
+        onTapColor: onTapColor,
       ),
     );
   }
