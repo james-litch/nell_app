@@ -10,7 +10,7 @@ class _FeedbackPageMobile extends StatelessWidget {
     TextEditingController feedbackText = TextEditingController();
 
     Widget feedbackMessages = viewModel.currentSubject == null
-        ? Center(child: Text('no subject selected'))
+        ? Center(child: Text('no feedback available'))
         : ListView.builder(
             itemCount: viewModel.currentSubject.feedback.length,
             itemBuilder: (context, int index) {
