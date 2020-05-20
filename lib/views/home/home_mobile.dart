@@ -177,7 +177,7 @@ class __HomeMobileState extends State<_HomeMobile> {
 
     Widget menuBody = Container(
       height: 500,
-      child: viewModel.subjects == null || viewModel.subjects == 0
+      child: viewModel.subjects == null || viewModel.subjects.length == 0
           ? Center(
               child: Text(
                 'no subjects available',
