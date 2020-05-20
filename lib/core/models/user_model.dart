@@ -3,8 +3,6 @@ class User {
   String name;
   String email;
 
-  // Tokens tokens
-
   User({this.id, this.name, this.email});
 
   factory User.fromJson(Map<String, dynamic> json) {
