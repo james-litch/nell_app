@@ -128,6 +128,7 @@ class HomeViewModel extends BaseViewModel {
       _subjects.add(res);
       _currentSubject = _subjects.last;
       _title = _currentSubject.name;
+      _showTabs = true;
       notifyListeners();
     }
   }
@@ -451,7 +452,18 @@ class HomeViewModel extends BaseViewModel {
 
   get dictionaryFilter => this._dictionaryFilter;
 
+  get dictionary {
+    return dictionaryFilter == ''
+        ? this._currentSubject.dictionary
+        : this
+            ._currentSubject
+            .dictionary
+            .where((def) => def.phrase.toLowerCase().contains(dictionaryFilter))
+            .toList();
+  }
+
   set currentTab(int index) {
+    _dictionaryFilter = '';
     this._currentTab = index;
     notifyListeners();
   }
@@ -472,13 +484,13 @@ class HomeViewModel extends BaseViewModel {
   }
 
   set currentSubject(int value) {
+    _dictionaryFilter = '';
     this._currentSubject = _subjects[value];
     notifyListeners();
   }
 
   set dictionaryFilter(String filter) {
     this._dictionaryFilter = filter;
-    print(filter);
     notifyListeners();
   }
 }
