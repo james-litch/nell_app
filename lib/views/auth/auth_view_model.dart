@@ -93,7 +93,7 @@ class AuthViewModel extends BaseViewModel {
 
   String signUpMutation = """
   mutation SignUp(\$input: SignUp) {
-     signIn(input: \$input) {
+    signUp(input: \$input) {
     tokens {
       refreshToken
       accessToken
