@@ -15,6 +15,7 @@ class RoundedTextBoxWidget extends StatelessWidget {
   final Color secondaryColor;
   final bool boarder;
   final IconData icon;
+  final onChanged;
 
   RoundedTextBoxWidget({
     @required this.controller,
@@ -23,7 +24,7 @@ class RoundedTextBoxWidget extends StatelessWidget {
     @required this.primaryColor,
     @required this.secondaryColor,
     @required this.boarder,
-    this.icon,
+    this.icon, this.onChanged,
   }) : assert(controller != null);
 
   @override
@@ -37,6 +38,7 @@ class RoundedTextBoxWidget extends StatelessWidget {
         isPassword: isPassword,
         label: label,
         icon: icon,
+        onChnaged: onChanged,
       ),
     
     );

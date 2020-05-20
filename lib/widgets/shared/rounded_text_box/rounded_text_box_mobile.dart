@@ -1,6 +1,6 @@
 part of rounded_text_box_widget;
 
-class _RoundedTextBoxMobile extends StatelessWidget {
+class _RoundedTextBoxMobile extends StatefulWidget {
   final TextEditingController controller;
   final bool isPassword;
   final String label;
@@ -8,6 +8,7 @@ class _RoundedTextBoxMobile extends StatelessWidget {
   final Color secondaryColor;
   final bool boarder;
   final IconData icon;
+  final onChnaged;
 
   _RoundedTextBoxMobile({
     @required this.controller,
@@ -17,31 +18,39 @@ class _RoundedTextBoxMobile extends StatelessWidget {
     @required this.secondaryColor,
     @required this.boarder,
     this.icon,
+    this.onChnaged,
   }) : assert(controller != null);
+
+  @override
+  __RoundedTextBoxMobileState createState() => __RoundedTextBoxMobileState();
+}
+
+class __RoundedTextBoxMobileState extends State<_RoundedTextBoxMobile> {
   @override
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: primaryColor,
-        border: Border.all(color: secondaryColor, width: 2.0),
+        color: widget.primaryColor,
+        border: Border.all(color: widget.secondaryColor, width: 2.0),
         borderRadius: BorderRadius.circular(30.0),
       ),
       child: TextField(
-        obscureText: isPassword,
-        controller: controller,
-        style: TextStyle(color: secondaryColor, fontSize: 20),
+        onChanged: widget.onChnaged,
+        obscureText: widget.isPassword,
+        controller: widget.controller,
+        style: TextStyle(color: widget.secondaryColor, fontSize: 20),
         decoration: InputDecoration(
           border: InputBorder.none,
           contentPadding: EdgeInsets.all(6.0),
-          hintText: label,
+          hintText: widget.label,
           hintStyle: TextStyle(
-            color: secondaryColor,
+            color: widget.secondaryColor,
             fontWeight: FontWeight.bold,
             fontSize: 20,
           ),
           icon: Padding(
             padding: const EdgeInsets.all(10.0),
-            child: icon == null ? null : Icon(icon, color: secondaryColor),
+            child: widget.icon == null ? null : Icon(widget.icon, color: widget.secondaryColor),
           ),
         ),
       ),
