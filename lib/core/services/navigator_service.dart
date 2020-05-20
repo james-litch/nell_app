@@ -4,26 +4,6 @@ import 'package:flutter/material.dart';
 class NavigatorService extends BaseService {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-  Future<T> navigateToPage<T>(MaterialPageRoute<T> pageRoute) async {
-    log.i('navigateToPage: pageRoute: ${pageRoute.settings.name}');
-    if (navigatorKey.currentState == null) {
-      log.e('navigateToPage: Navigator State is null');
-      return null;
-    }
-    return navigatorKey.currentState.push(pageRoute);
-  }
-
-  Future<T> navigateToPageWithReplacement<T>(
-      MaterialPageRoute<T> pageRoute) async {
-    log.i('navigateToPageWithReplacement: '
-        'pageRoute: ${pageRoute.settings.name}');
-    if (navigatorKey.currentState == null) {
-      log.e('navigateToPageWithReplacement: Navigator State is null');
-      return null;
-    }
-    return navigatorKey.currentState.pushReplacement(pageRoute);
-  }
-
   Future<dynamic> navigateTo(String routeName, {dynamic arguments}) {
     log.i('navigateToPageWithReplacement: pageRoute: $routeName');
     return navigatorKey.currentState.pushNamed(routeName, arguments: arguments);
