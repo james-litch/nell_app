@@ -136,6 +136,13 @@ class _HomePageMobile extends StatelessWidget {
                   style: theme.textTheme.bodyText2,
                 ),
               ),
+              PopupMenuItem<int>(
+                value: 5,
+                child: Text(
+                  '5 Options',
+                  style: theme.textTheme.bodyText2,
+                ),
+              ),
             ],
           )
         : Container();
