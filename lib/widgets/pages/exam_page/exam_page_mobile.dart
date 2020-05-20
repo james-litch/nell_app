@@ -34,7 +34,7 @@ class _ExamPageMobile extends StatelessWidget {
                 },
               ),
               Text(
-                'Add Question',
+                'Add Exam',
                 style: theme.textTheme.headline2,
               ),
             ],
