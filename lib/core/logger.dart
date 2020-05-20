@@ -24,8 +24,6 @@ class SimpleLogPrinter extends LogPrinter {
             return 1500;
           case Level.error:
             return 2000;
-          case Level.wtf:
-            return 2000;
           default:
             return 2000;
         }
