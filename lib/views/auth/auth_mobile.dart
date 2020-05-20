@@ -76,7 +76,7 @@ class __AuthMobileState extends State<_AuthMobile> {
       _passwordController.clear();
     }
 
-     Widget loginSheetHeader = Row(
+    Widget loginSheetHeader = Row(
       children: <Widget>[
         IconButton(
           icon: Icon(Icons.close, color: theme.primaryColor),
@@ -88,6 +88,7 @@ class __AuthMobileState extends State<_AuthMobile> {
 
     void loginSheet() {
       clearControllers();
+      _register = false;
       _scaffoldKey.currentState.showBottomSheet(
         (context) => BottomSheetWidget(
           sheetTop: loginSheetHeader,
@@ -118,6 +119,7 @@ class __AuthMobileState extends State<_AuthMobile> {
 
     void registerSheet() {
       clearControllers();
+      _register = true;
       _scaffoldKey.currentState.showBottomSheet(
         (context) => BottomSheetWidget(
           sheetTop: registerSheetHeader,
@@ -156,7 +158,7 @@ class __AuthMobileState extends State<_AuthMobile> {
 
     return Scaffold(
       key: _scaffoldKey,
-      resizeToAvoidBottomInset : false,
+      resizeToAvoidBottomInset: false,
       backgroundColor: Theme.of(context).primaryColor,
       body: Padding(
         padding: EdgeInsets.only(left: 30, right: 30),
